@@ -29,6 +29,8 @@ namespace PetAdoption.Controllers
         public IActionResult Vetconsultform() => View();
         public IActionResult PetAbuse() => View();
         public IActionResult Training() => View();
+        public IActionResult Afterlogin() => View();
+        public IActionResult Adminlogin() => View();
 
         // Login GET
         public IActionResult Login()
@@ -55,7 +57,7 @@ namespace PetAdoption.Controllers
             {
                 HttpContext.Session.SetString("UserEmail", user.Email);
                 TempData["Success"] = "Login successful!";
-                return RedirectToAction("Index"); // Redirects back to login page for simplicity
+                return RedirectToAction("Afterlogin"); // Redirects back to login page for simplicity
             }
 
             ViewBag.Error = "Invalid email or password";
@@ -105,7 +107,11 @@ namespace PetAdoption.Controllers
             TempData["Success"] = "Signup successful! Please log in.";
             return RedirectToAction("Login");
         }
-
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
         private string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -120,5 +126,7 @@ namespace PetAdoption.Controllers
             var hashOfInput = HashPassword(password);
             return hashOfInput == hashedPassword;
         }
+
+
     }
 }

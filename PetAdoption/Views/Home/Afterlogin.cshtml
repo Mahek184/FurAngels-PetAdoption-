@@ -1,7 +1,11 @@
-﻿
+﻿@{
+    Layout = null;
+}
+
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <title>Fur Angels Homepage</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
@@ -29,18 +33,13 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            margin-left: 900px;
+            margin-left: auto;
         }
 
             .icon-container i {
                 font-size: 24px;
                 color: #333;
-                transition: color 0.3s;
             }
-
-                .icon-container i:hover {
-                    color: #D86F1D; /* Hover color */
-                }
 
         .dropdown-menu {
             display: none;
@@ -68,39 +67,59 @@
                     background-color: #f0f0f0;
                 }
 
-        /* Admin Icon + Login Button Container */
-        .login-container {
+        /* User Profile Dropdown (replacing login button) */
+        .user-profile {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 15px; /* Space between icon and button */
+            margin-left: 15px;
         }
 
-        .admin-icon {
-            font-size: 22px;
-            color: #333;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-            .admin-icon:hover {
-                color: #D86F1D; /* Hover color */
-            }
-
-        /* Login Button */
-        .login-button {
-            background-color: #D86F1D;
+        .user-circle {
+            width: 40px;
+            height: 40px;
+            background-color: #D86F1D; /* Orange color */
             color: white;
-            border: none;
-            padding: 8px 16px;
-            font-size: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s;
         }
 
-            .login-button:hover {
-                background-color: #C45E1A;
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            width: 150px;
+            z-index: 1000;
+        }
+
+            .user-dropdown a {
+                display: flex;
+                align-items: center;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: #333;
+                font-size: 14px;
+                transition: background-color 0.3s;
             }
+
+                .user-dropdown a i {
+                    margin-right: 10px;
+                    color: #6c5ce7; /* Purple color for icons */
+                }
+
+                .user-dropdown a:hover {
+                    background-color: #f0f0f0;
+                }
 
         .banner {
             position: relative;
@@ -269,7 +288,7 @@
                     color: #555;
                 }
 
-        /* Main Container */
+        /* Testimonial Section */
         .testimonial-card {
             display: flex;
             justify-content: center;
@@ -277,22 +296,20 @@
             position: relative;
         }
 
-        /* Image Styling */
         .testimonial-image img {
-            width: 1100px; /* Adjust the width as per your requirement */
+            width: 1100px;
             height: 550px;
             border-radius: 0px;
             display: block;
             margin-top: 150px;
         }
 
-        /* Overlay Content */
         .testimonial-content {
             position: absolute;
-            top: 50px; /* Adjust to move the card vertically */
-            left: 200px; /* Adjust to move the card horizontally */
-            background: rgba(181, 199, 235, 0.6); /* Semi-transparent background */
-            backdrop-filter: blur(10px); /* Blur effect */
+            top: 50px;
+            left: 200px;
+            background: rgba(181, 199, 235, 0.6);
+            backdrop-filter: blur(10px);
             padding: 15px 20px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -300,19 +317,17 @@
             max-width: 300px;
         }
 
-            /* Purple Line Styling */
             .testimonial-content::before {
                 content: "";
                 position: absolute;
                 top: 0;
-                left: 10px; /* Adjust as needed for alignment */
-                width: calc(100% - 20px); /* Adjust the width relative to the content */
-                height: 3px; /* Thickness of the line */
-                background-color: #6c5ce7; /* Purple color */
-                border-radius: 2px; /* Optional for rounded ends */
+                left: 10px;
+                width: calc(100% - 20px);
+                height: 3px;
+                background-color: #6c5ce7;
+                border-radius: 2px;
             }
 
-            /* Text Styling */
             .testimonial-content p {
                 margin: 0 0 8px;
                 font-size: 14px;
@@ -349,18 +364,15 @@
                     text-decoration: underline;
                 }
 
-        /*Adopt-love-section*/
-
         .adopt-love-section {
             text-align: center;
-            background-color: #9C89F5; /* Purple background matching the image */
+            background-color: #9C89F5;
             padding: 50px 20px;
-            /*border-radius: 10px;*/
             color: white;
-            margin: 40px auto; /* Add margin to separate from the previous section */
-            max-width: 100%; /* Make it full screen width */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for elevation */
-            margin-top: 60px; /* Add this property for spacing from the previous section */
+            margin: 40px auto;
+            max-width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 60px;
         }
 
             .adopt-love-section h2 {
@@ -372,12 +384,12 @@
             .adopt-love-section p {
                 font-size: 16px;
                 line-height: 1.6;
-                magin-bottom: 30px;
+                margin-bottom: 30px; /* Fixed typo: magin-bottom -> margin-bottom */
             }
 
             .adopt-love-section .adopt-button {
                 background-color: white;
-                color: #6C5CE7; /* Purple for button text */
+                color: #6C5CE7;
                 border: none;
                 padding: 10px 20px;
                 font-size: 16px;
@@ -391,7 +403,6 @@
                     background-color: #6C5CE7;
                     color: white;
                 }
-
 
         .faq-container {
             max-width: 800px;
@@ -450,8 +461,6 @@
             margin: 0;
         }
 
-        /* pet care section */
-
         .container {
             text-align: center;
             background-color: #9C89F5;
@@ -468,18 +477,18 @@
 
         .button-container {
             display: grid;
-            grid-template-columns: repeat(2, minmax(150px, 1fr)); /* Two columns layout */
-            grid-gap: 20px; /* Space between buttons */
-            justify-content: center; /* Horizontally center the grid */
-            justify-items: center; /* Center items within their grid cells */
+            grid-template-columns: repeat(2, minmax(150px, 1fr));
+            grid-gap: 20px;
+            justify-content: center;
+            justify-items: center;
         }
 
         .button {
-            width: 220px; /* Set the desired width */
+            width: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px; /* Adjust padding if needed */
+            padding: 10px;
             background-color: #ffffff;
             color: #000;
             border: none;
@@ -492,61 +501,54 @@
             .button img {
                 width: 30px;
                 height: 30px;
-                margin-right: 10px; /* Space between the image and text */
+                margin-right: 10px;
             }
-
-
 
             .button:active {
                 transform: translateY(2px);
             }
 
         .button-container > a:nth-child(5) {
-            grid-column: span 2; /* Fifth button spans two columns */
-            justify-self: center; /* Center the fifth button */
+            grid-column: span 2;
+            justify-self: center;
         }
 
         .button-container > a:nth-child(1),
         .button-container > a:nth-child(2) {
-            margin-right: 0; /* Remove any margin between these two buttons */
+            margin-right: 0;
         }
 
         .button-container > a:nth-child(1) {
-            margin-right: -350px; /* Decrease the space between "Report Animal Abuse" and "Dog Training" */
+            margin-right: -350px;
         }
 
         .button-container > a:nth-child(2) {
-            margin-left: -350px; /* Decrease the space between "Report Animal Abuse" and "Dog Training" */
+            margin-left: -350px;
         }
 
         .button-container > a:nth-child(3) {
-            margin-right: -350px; /* Decrease the space between "Report Animal Abuse" and "Dog Training" */
+            margin-right: -350px;
         }
 
         .button-container > a:nth-child(4) {
-            margin-left: -350px; /* Decrease the space between "Report Animal Abuse" and "Dog Training" */
+            margin-left: -350px;
         }
 
-        /*last deign of the page*/
         .lastbanner {
-            background-color: #9966CC; /* Purple color */
-            color: #fff; /* White text */
+            background-color: #9966CC;
+            color: #fff;
             text-align: center;
-            padding: 10px 0; /* Adjust padding for spacing */
-            margin-top: 10px; /* Add 50px margin from the top */
+            padding: 10px 0;
+            margin-top: 10px;
             height: 30px;
         }
-
     </style>
 </head>
 <body>
-
     <form id="form1" runat="server">
         <!-- Header -->
         <div class="header">
-            <img src="image/resize.png" alt="Fur Angels Animal Shelter Logo">
-
-            <!-- Dropdown Menu -->
+            <img src="~/image/resize.png" alt="Fur Angels Animal Shelter Logo">
             <div class="icon-container" id="menu-icon">
                 <i class="fa-solid fa-bars"></i>
             </div>
@@ -555,31 +557,27 @@
                 <a asp-controller="Home" asp-action="AboutUs">About us</a>
                 <a asp-controller="Home" asp-action="GroomingPage">Pet Grooming</a>
                 <a asp-controller="Home" asp-action="PetShop">Online Shop</a>
-                <a asp-controller="Home" asp-action="Consult">Vet Consult</a>
+                <a asp-controller="Home" asp-action="Consult">Vet consult</a>
                 <a asp-controller="Home" asp-action="PetAbuse">Report Animal Abuse</a>
                 <a asp-controller="Home" asp-action="Training">Dog Training</a>
-                <a asp-controller="Home" asp-action="CartItem">Blog</a>
-                <a asp-controller="Home" asp-action="Login">User Login</a>
             </div>
 
-            <!-- Admin Icon + Login Button -->
-            <div class="login-container">
-                <!-- Admin Icon (Left Side) -->
-                <a asp-controller="Admin" asp-action="Adminlogin" title="Admin Login">
-                    <i class="fas fa-user-tie admin-icon"></i>
-                </a>
-
-                <!-- User Login Button -->
-                <a asp-controller="Home" asp-action="Login">
-                    <button class="login-button">Login</button>
-                </a>
+            <!-- User Profile Dropdown -->
+            <div class="user-profile">
+                <div class="user-circle" id="user-circle">
+                    @(ViewBag.UserFullName != null ? ViewBag.UserFullName.Substring(0, 1).ToUpper() : "U")
+                </div>
+                <div class="user-dropdown" id="user-dropdown">
+                    <a href="#"><i class="fa-solid fa-user"></i>My Profile</a>
+                    <a href="#"><i class="fa-solid fa-shopping-cart"></i>View Cart</a>
+                    <a asp-controller="Home" asp-action="Logout"><i class="fa-solid fa-sign-out-alt"></i>Log Out</a>
+                </div>
             </div>
         </div>
 
-
         <!-- Banner -->
         <div class="banner">
-            <img src="image/adorable-golden-retriever-outdoors.jpg" alt="Fur Angels Animal Shelter Logo">
+            <img src="~/image/adorable-golden-retriever-outdoors.jpg" alt="Fur Angels Animal Shelter Logo">
             <div class="content">
                 <h2>Re-Home and Adopt a Pet in India</h2>
                 <p>Every Pet Deserves a Good Home. #Adoptlove</p>
@@ -590,32 +588,26 @@
         <!-- Adopt Section -->
         <div class="adopt-section">
             <h2>Your Pet Adoption Journey With FurAngels</h2>
-
-            <!-- Left Side: Dog Image -->
             <div class="left-img">
-                <img src="image/adopt_me_1-removebg.png" alt="Adopt Me Dog">
+                <img src="~/image/adopt_me_1-removebg.png" alt="Adopt Me Dog">
             </div>
-
-            <!-- Right Side: Content -->
             <div class="right-content">
                 <div class="adopt-item">
-                    <img src="image/footprint.png" alt="Paw Print">
+                    <img src="~/image/footprint.png" alt="Paw Print">
                     <div class="adopt-item-content">
                         <h3>Search Pet</h3>
                         <p>Adopt a dog or cat who's right for you.<br>Simply enter your city above to start your search.</p>
                     </div>
                 </div>
-
                 <div class="adopt-item">
-                    <img src="image/footprint.png" alt="Paw Print">
+                    <img src="~/image/footprint.png" alt="Paw Print">
                     <div class="adopt-item-content">
                         <h3>Connect</h3>
                         <p>Once you find a pet, click "show number"<br>to get contact info for their pet parent<br>or rescue. Contact them to learn more.</p>
                     </div>
                 </div>
-
                 <div class="adopt-item">
-                    <img src="image/footprint.png" alt="Paw Print">
+                    <img src="~/image/footprint.png" alt="Paw Print">
                     <div class="adopt-item-content">
                         <h3>AdoptLove</h3>
                         <p>The rescue or pet parents will walk<br>you through their adoption process.<br>Prepare your home for the arrival of<br>your new furry family member.</p>
@@ -629,17 +621,17 @@
             <h2>How it works?</h2>
             <div class="steps">
                 <div class="step">
-                    <img src="image/search-removebg-preview (1).png" alt="Search Icon">
+                    <img src="~/image/search-removebg-preview (1).png" alt="Search Icon">
                     <h3>Search</h3>
                     <p>Simply enter your city to start your search.</p>
                 </div>
                 <div class="step">
-                    <img src="image/msg-removebg-preview.png" alt="Meet Icon">
+                    <img src="~/image/msg-removebg-preview.png" alt="Meet Icon">
                     <h3>Meet</h3>
                     <p>Schedule your appointment to meet the pet you love.</p>
                 </div>
                 <div class="step">
-                    <img src="image/shopping-cart-removebg-preview.png" alt="Adopt Icon">
+                    <img src="~/image/shopping-cart-removebg-preview.png" alt="Adopt Icon">
                     <h3>Adopt</h3>
                     <p>Finally adopt the dog or cat you love.</p>
                 </div>
@@ -649,12 +641,10 @@
         <!-- Testimonial Section -->
         <div class="testimonial-card">
             <div class="testimonial-image">
-                <img src="image/pet love boy.jpg" alt="Adoption Image">
+                <img src="~/image/pet love boy.jpg" alt="Adoption Image">
                 <div class="testimonial-content">
                     <p>
-                        <strong>
-                            I am very happy to adopt Olivia. I was fortunate enough to find her on FurAngels –
-                        </strong>
+                        <strong>I am very happy to adopt Olivia. I was fortunate enough to find her on FurAngels –</strong>
                         <br>
                         <span class="author">Sneha Patel</span>
                     </p>
@@ -663,7 +653,7 @@
             </div>
         </div>
 
-        <!-- New Section: AdoptLove -->
+        <!-- AdoptLove Section -->
         <div class="adopt-love-section">
             <h2>#AdoptLove</h2>
             <p>
@@ -677,39 +667,35 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question">
-                    <span>Why Should YOu Adopt Dog Or Cat?</span>
-                    <span>&#9654;</span>
+                    <span>Why Should You Adopt Dog Or Cat?</span>
+                    <span>▶</span>
                 </div>
                 <div class="faq-answer">
                     <p>Did you know that over 2000 people per hour in India run a search right here looking to adopt a pet? Pet adoption is becoming the preferred way to find a new pet. Adoption will always be more convenient than buying a puppy for sale from a pet shop or finding a kitten for sale from a litter. Pet adoption brings less stress and more savings! So what are you waiting for? Go find that perfect pet for home!</p>
                 </div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question">
                     <span>What is fee to adopt a pet?</span>
-                    <span>&#9654;</span>
+                    <span>▶</span>
                 </div>
                 <div class="faq-answer">
                     <p>No, there is no fee for pet adoption on Furangels. However, if you adopt from a different city pet owner/rescuer can ask for travel charges. In case if you find someone asking for charges you can write us at support@furangels.com.</p>
                 </div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question">
                     <span>How old do I need to be to adopt a pet?</span>
-                    <span>&#9654;</span>
+                    <span>▶</span>
                 </div>
                 <div class="faq-answer">
                     <p>You need to be at least 18+ years old to adopt</p>
                 </div>
             </div>
-
-
             <div class="faq-item">
                 <div class="faq-question">
                     <span>Can you return an adopted pet?</span>
-                    <span>&#9654;</span>
+                    <span>▶</span>
                 </div>
                 <div class="faq-answer">
                     <p>We understand it can be hard to get an adjusted pet in the new home and vice versa, as long as your reason for returning is reasonable, you'll be welcome to put it up for adoption again</p>
@@ -722,43 +708,36 @@
             <h1>Book Pet Care Service With FurAngles</h1>
             <div class="button-container">
                 <a href="#" class="button">
-                    <img src="image/report animal abuse.jpg" alt="Report Animal Abuse">
+                    <img src="~/image/report animal abuse.jpg" alt="Report Animal Abuse">
                     Report Animal Abuse
                 </a>
                 <a href="#" class="button">
-                    <img src="image/dog-training.jpg" alt="Dog Training">
+                    <img src="~/image/dog-training.jpg" alt="Dog Training">
                     Dog Training
                 </a>
                 <a href="#" class="button">
-                    <img src="image/pet grooming.png" alt="Pet Grooming">
+                    <img src="~/image/pet grooming.png" alt="Pet Grooming">
                     Pet Grooming
                 </a>
                 <a href="#" class="button">
-                    <img src="image/pet consult.jpg" alt="Vet Consult" class="large-img">
+                    <img src="~/image/pet consult.jpg" alt="Vet Consult" class="large-img">
                     Vet Consult
                 </a>
                 <a href="#" class="button">
-                    <img src="image/pet-insurance.jpg" alt="Pet Insurance">
+                    <img src="~/image/pet-insurance.jpg" alt="Pet Insurance">
                     Pet Insurance
                 </a>
             </div>
         </div>
 
-        <!--last design of the page-->
+        <!-- Last Banner -->
         <div class="lastbanner">
             FurAngles 2025
         </div>
-
-
     </form>
 
-    <!--Main Content-->
-    <div class="container">
-        @RenderBody()
-    </div>
-
     <script>
-        // JavaScript to toggle dropdown menu
+        // Toggle main dropdown menu
         const menuIcon = document.getElementById("menu-icon");
         const dropdownMenu = document.getElementById("dropdown-menu");
 
@@ -770,17 +749,32 @@
             }
         });
 
-        // Close dropdown if clicked outside
         document.addEventListener("click", function (event) {
             if (!menuIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.style.display = "none";
             }
         });
-    </script>
 
-    <script>
+        // Toggle user profile dropdown
+        const userCircle = document.getElementById("user-circle");
+        const userDropdown = document.getElementById("user-dropdown");
+
+        userCircle.addEventListener("click", function () {
+            if (userDropdown.style.display === "block") {
+                userDropdown.style.display = "none";
+            } else {
+                userDropdown.style.display = "block";
+            }
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!userCircle.contains(event.target) && !userDropdown.contains(event.target)) {
+                userDropdown.style.display = "none";
+            }
+        });
+
+        // FAQ toggle
         const faqItems = document.querySelectorAll('.faq-item');
-
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
             const answer = item.querySelector('.faq-answer');
@@ -802,6 +796,5 @@
             });
         });
     </script>
-
 </body>
 </html>
