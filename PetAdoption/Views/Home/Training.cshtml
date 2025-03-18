@@ -1,0 +1,769 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professional Dog Training Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 15px 20px;
+            position: relative;
+        }
+
+            .header img {
+                max-width: 300px;
+                height: 50px;
+            }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+            .icon-container i {
+                font-size: 24px;
+                color: #333;
+            }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 1000;
+        }
+
+            .dropdown-menu a {
+                display: block;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+
+                .dropdown-menu a:hover {
+                    background-color: #f0f0f0;
+                }
+
+        /* Main Banner Section */
+        .main-banner {
+            background: url('/image/Dog training bg.jpg') no-repeat center center/cover;
+            background-size: cover;
+            width: 100%;
+            height: 600px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 150px; /* Space for fixed header */
+            box-sizing: border-box;
+        }
+
+            /* Header Text */
+            .main-banner h1 {
+                color: black;
+                font-size: 36px;
+                margin-top: -135px;
+            }
+
+            .main-banner p {
+                color: black;
+                font-size: 18px;
+                margin-top: -20px;
+            }
+
+        /* Orange Box */
+        .orange-box {
+            background-color: #FF8C00;
+            color: black;
+            padding: 10px 13px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            width: 220px;
+            margin-left: -544px;
+        }
+
+            .orange-box img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .orange-box h3 {
+                margin: 0;
+                font-size: 22px;
+            }
+
+            .orange-box p {
+                margin: 0;
+                font-size: 14px;
+            }
+
+        /* White Box */
+        .white-box {
+            background-color: white;
+            width: 750px;
+            padding: 45px 20px;
+            border: 1px solid #ccc;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+            .checkbox-group label {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                width: 30%;
+                font-size: 14px;
+            }
+
+        /* Form Fields */
+        /* Form Group (Label + Input) */
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        /* Input Wrapper for icon */
+        .input-wrapper {
+            position: relative;
+            width: 48%;
+        }
+
+            /* Actual Input */
+            .input-wrapper input {
+                width: 100%;
+                padding: 12px 40px 12px 15px; /* Space for icon on right */
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                box-sizing: border-box;
+                font-size: 14px;
+            }
+
+            /* Label Above Input */
+            .input-wrapper label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                font-size: 14px;
+                color: #333;
+            }
+
+            /* Icon inside Input */
+            .input-wrapper i {
+                position: absolute;
+                right: 12px;
+                top: 65%;
+                transform: translateY(-50%);
+                color: black;
+                font-size: 18px;
+                pointer-events: none;
+            }
+
+            /* Placeholder on focus effect */
+            .input-wrapper input:focus::placeholder {
+                color: transparent;
+            }
+
+        /* Button */
+        .btn {
+            width: 100%;
+            background-color: orange;
+            color: black;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: darkorange;
+            }
+
+        /* pet nest protect */
+        .card-container {
+            max-width: 650px; /* Wider for horizontal layout */
+            margin: 120px 300px;
+            padding: 30px;
+            border: 2px solid #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .left-section {
+            width: 150%;
+        }
+
+        .right-section {
+            width: 30%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .right-section img{
+            margin-right: -120px;
+            margin-top: -70px;
+        }
+
+        .trainer-image {
+            width: 350px;
+            max-width: 250px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+            .card-title .icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .card-title h2 {
+                margin: 0;
+                font-size: 36px; /* Bigger title */
+                font-weight: bold;
+            }
+
+        p {
+            font-size: 18px; /* Larger font */
+            line-height: 1.8;
+            margin: 15px 0;
+            text-align: justify;
+        }
+
+        .training-btn {
+            display: block; /* Block makes margin auto effective */
+            padding: 16px 34px;
+            background-color: #D35400; /* Dark Orange */
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            margin: 20px auto 0 auto; /* Center horizontally */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .training-btn:hover {
+            background-color: #A84300; /* Darker on hover */
+        }
+
+        /* Main Section */
+.booking-section {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 60px auto;
+    background: #E4EFE7;
+    margin-top: -70px;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #000;
+}
+
+/* Container holding the cards */
+.steps-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: nowrap; /* Prevents wrapping to next row */
+}
+
+/* Individual Card */
+.step-box {
+    background-color: #F4F4F4;
+    border-radius: 15px;
+    padding: 20px;
+    width: 33%; /* Exactly 3 cards in one row */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.step-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Icon Styling */
+.step-icon {
+    font-size: 40px;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+/* Title inside card */
+.step-box h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Description */
+.step-box p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Small screens (mobile) adjustment */
+media (max-width: 768px) {
+    .steps-container {
+        flex-wrap: wrap; /* Allow wrapping on small screens */
+    }
+
+    .step-box {
+        width: 100%; /* Full width card on small screens */
+        margin-bottom: 20px;
+    }
+}
+        
+        /* Main Section */
+.training-section {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Title & Subtitle */
+.main-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Photo Card Container */
+.photo-card-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: nowrap; /* No wrap to ensure 1 row */
+    overflow-x: auto; /* Scroll if screen is smaller */
+    padding-bottom: 10px;
+}
+
+/* Individual Photo Card */
+.photo-card {
+    width: 24%; /* Ensures 4 cards in one row */
+    min-width: 280px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.photo-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Image Styling */
+.photo-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Text Content Under Image */
+.card-content {
+    padding: 15px;
+    color: black;
+    min-height: 230px;
+}
+
+/* Background Colors */
+.green-bg {
+    background-color: #A2C579;
+}
+
+.teal-bg {
+    background-color: #6DB9EF;
+}
+
+.orange-bg {
+    background-color: #F4A259;
+}
+
+.pink-bg {
+    background-color: #D988B9;
+}
+
+/* Card Titles */
+.card-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Card Paragraph */
+.card-content p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+media (max-width: 992px) {
+    .photo-card {
+        width: 48%; /* 2 in row on medium screens */
+    }
+}
+
+media (max-width: 600px) {
+    .photo-card {
+        width: 100%; /* Full width on small screens */
+    }
+}
+
+        /* Dog-Friendly Training */
+       
+.dog-training-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Responsive wrapping */
+}
+
+/* Left Column */
+.content-column {
+    flex: 1;
+    min-width: 320px;
+    max-width: 700px;
+}
+
+/* Right Column */
+.image-column {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image Styling */
+.image-column img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* Titles */
+.content-column h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.content-column h3 {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+/* Paragraph */
+.content-column p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* List Styling */
+.content-column ul {
+    padding-left: 20px;
+}
+
+.content-column ul li {
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+}
+
+/* Bold Titles in List */
+.content-column ul li strong {
+    color: #000;
+}
+
+/* Responsive Design */
+media (max-width: 992px) {
+    .dog-training-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .image-column {
+        margin-top: 20px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Header (Fixed on Top) -->
+    <div class="header">
+        <img src="~/image/resize.png" alt="Fur Angels Animal Shelter Logo">
+        <div class="icon-container" id="menu-icon">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+            <a asp-controller="Home" asp-action="AboutUs">About us</a>
+            <a asp-controller="Home" asp-action="GroomingPage">Pet Grooming</a>
+            <a asp-controller="Home" asp-action="PetShop">Online Shop</a>
+            <a asp-controller="Home" asp-action="Consult">Vet consult</a>
+            <a asp-controller="Home" asp-action="PetAbuse">Report Animal Abuse</a>
+            <a asp-controller="Home" asp-action="CartItem">Blog</a>
+            <a href="LoginPage.aspx">Login</a>
+        </div>
+    </div>
+
+    <!-- Main Banner Below Header -->
+    <div class="main-banner">
+        <h1>Professional Dog Training Service</h1>
+        <p>Book a dog training at home — connect with expert dog trainers near you for personalized canine training!</p>
+
+        <div class="orange-box">
+            <img src="~/image/dog-house.png" alt="Dog House Icon">
+            <div>
+                <h3>Home Training</h3>
+                <p>At Your Home</p>
+            </div>
+        </div>
+
+        <div class="white-box">
+            <div class="checkbox-group">
+                <label><input type="checkbox"> <div><strong>Puppy Training</strong><br>For young puppies (1~6 months) to develop basic obedience and socialization skills.</div></label>
+                <label><input type="checkbox"> <div><strong>Basic Obedience Training</strong><br>For dogs (6 months and older) to learn essential commands and manners.</div></label>
+                <label><input type="checkbox"> <div><strong>Behavior Correction Training</strong><br>For dogs with problematic behaviors that require modification.</div></label>
+            </div>
+
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <label for="location">Your Location</label>
+                    <input type="text" id="location" placeholder="Select Your Location">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="input-wrapper">
+                    <label for="breed">Your Dog's Breed</label>
+                    <input type="text" id="breed" placeholder="Select Breed Here">
+                    <i class="fa-solid fa-dog"></i>
+                </div>
+            </div>
+
+            <button class="btn">Book Your Training</button>
+        </div>
+    </div>
+
+
+    <!-- pet nest protect -->
+    <div class="card-container">
+        <div class="card-header">
+            <div class="left-section">
+                <div class="card-title">
+                    <img src="~/image/secure.png" alt="Shield Icon" class="icon" />
+                    <h2>ThePetNest Protect</h2>
+                </div>
+                <p>Find peace of mind with every dog training booking.</p>
+
+                <p><strong>Screened Dog Trainers:</strong> All our dog trainers have passed third-party background checks and feature verified reviews from pet parents like you.</p>
+
+                <p><strong>Messaging & Training updates:</strong> Get real-time updates from your dog trainer, rate sessions individually, and schedule training at your convenience.</p>
+
+                <p>24/7 support from the ThePetNest team—here to help if you ever need someone to talk to in between your dog training sessions.</p>
+
+                <button class="training-btn" onclick="location.href='@Url.Action("BookTraining", "Training")'">Book Your Training</button>
+            </div>
+
+            <div class="right-section">
+                <img src="~/image/dog-training_.png" alt="Dog Trainer" class="trainer-image" />
+            </div>
+        </div>
+    </div>
+
+
+    <!-- booking-section -->
+    <div class="booking-section">
+        <h2 class="section-title">How to Book Dog Training Service</h2>
+        <div class="steps-container">
+            <!-- Step 1 -->
+            <div class="step-box">
+                <div class="step-icon"><i class="fas fa-search"></i></div>
+                <h3>1. Find Your Match</h3>
+                <p>Browse certified dog trainer profiles and select your favorites so we understand your preferences.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-box">
+                <div class="step-icon"><i class="fas fa-comments"></i></div>
+                <h3>2. Schedule a Training Session</h3>
+                <p>Easily connect with your perfect dog trainer, schedule sessions, and make secure payments online through our app or website.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-box">
+                <div class="step-icon"><i class="fas fa-shopping-cart"></i></div>
+                <h3>3. Start Your Dog Training Journey</h3>
+                <p>You have the flexibility to set up training sessions when they work best for you—without having to drive anywhere.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- training-section -->
+    <div class="training-section">
+        <h2 class="main-title">Dog Training - Why it is important?</h2>
+        <h6 class="subtitle">Investing in dog training enhances your dog's behavior and strengthens your bond, making life more enjoyable for both of you.</h6>
+
+        <div class="photo-card-container">
+            <!-- Card 1 -->
+            <div class="photo-card">
+                <img src="~/image/dog with girl 4.jpg" alt="Dog Training Image 1">
+                <div class="card-content green-bg">
+                    <h3>Management Techniques</h3>
+                    <p>Dog training provides you with practical tools and strategies to manage your dog's behavior effectively. By learning these techniques, you set your family and your dog up for a harmonious and successful life together.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="photo-card">
+                <img src="~/image/dog with girl.jpeg" alt="Dog Training Image 2">
+                <div class="card-content teal-bg">
+                    <h3>Strengthen Bond</h3>
+                    <p>Training helps build a deeper understanding between you and your dog. It fosters trust, improves communication, and bridges the gap, creating a stronger and more loving bond.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="photo-card">
+                <img src="~/image/DT5.jpg" alt="Dog Training Image 3">
+                <div class="card-content orange-bg">
+                    <h3>Socialization</h3>
+                    <p>Proper training introduces your dog to new environments, people, and pets in a safe way. This boosts their confidence, reduces anxiety, and ensures they are well-adjusted in different surroundings.</p>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="photo-card">
+                <img src="~/image/dog with girl 3.jpg" alt="Dog Training Image 4">
+                <div class="card-content pink-bg">
+                    <h3>Mental Stimulation</h3>
+                    <p>Training challenges your dog's mind, keeping them mentally sharp and reducing boredom-related behaviors. Mental exercises are just as crucial as physical activities for a healthy, happy dog.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Dog-Friendly Training -->
+    <div class="dog-training-section">
+        <div class="content-column">
+            <h2>A Dog-Friendly Training Experience with FurAngels</h2>
+            <p>At ThePetNest, we believe in creating a dog-friendly training experience that nurtures the well-being of both pets and pet parents. Our certified pet trainers are not only highly educated but also genuinely passionate about helping you build a stronger, happier bond with your furry companion.</p>
+
+            <h3>Our Trainers & Methods</h3>
+            <ul>
+                <li>
+                    <strong>Expert Trainers with a Passion for Pets:</strong> ThePetNest’s certified trainers are skilled professionals who prioritize the well-being and happiness of your pet. They’re dedicated to guiding pet parents in understanding their dog's behavior and needs.
+                </li>
+                <li>
+                    <strong>Science-Based Positive Training:</strong> We employ training methods rooted in science, focusing on rewarding positive behavior rather than punishing mistakes. This humane approach helps dogs feel confident and secure, fostering better learning and trust.
+                </li>
+                <li>
+                    <strong>Customized Training Plans:</strong> Every dog and family is unique, which is why our trainers design personalized training plans tailored to meet your goals, lifestyle, and your dog’s specific needs. From basic obedience and behavior correction to mastering advanced tricks, our comprehensive training programs are designed to meet all your dog's needs with ease and effectiveness.
+                </li>
+            </ul>
+        </div>
+
+        <div class="image-column">
+            <img src="~/image/Dog training.jpg" alt="Dog Training Image">
+        </div>
+    </div>
+
+
+
+    <!-- Dropdown Menu Script -->
+    <script>
+        const menuIcon = document.getElementById("menu-icon");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+
+        menuIcon.addEventListener("click", function () {
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!menuIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>

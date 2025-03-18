@@ -1,0 +1,772 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Fur Angels Homepage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 15px 20px;
+            position: relative;
+        }
+
+            .header img {
+                max-width: 300px;
+                height: 50px;
+            }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+            .icon-container i {
+                font-size: 24px;
+                color: #333;
+            }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 1000;
+        }
+
+            .dropdown-menu a {
+                display: block;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+
+                .dropdown-menu a:hover {
+                    background-color: #f0f0f0;
+                }
+
+        /* Login Button */
+        .login-button {
+            background-color: #D86F1D;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 15px;
+        }
+
+            .login-button:hover {
+                background-color: #C45E1A;
+            }
+
+        .banner {
+            position: relative;
+            text-align: center;
+        }
+
+            .banner img {
+                width: 100%;
+                height: 550px;
+                object-fit: cover;
+            }
+
+        .content {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(144, 238, 144, 0.3);
+            color: #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            overflow: hidden;
+            backdrop-filter: blur(60px);
+            border: 1px solid rgba(144, 238, 144, 0.5);
+        }
+
+            .content h2 {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 0 0 15px;
+            }
+
+            .content p {
+                font-size: 16px;
+                margin: 0 0 20px;
+            }
+
+            .content .button {
+                display: inline-block;
+                background-color: #fff;
+                color: #6c5ce7;
+                text-decoration: none;
+                padding: 12px 25px;
+                border-radius: 25px;
+                font-size: 16px;
+                font-weight: bold;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+                .content .button:hover {
+                    background-color: #6c5ce7;
+                    color: #fff;
+                }
+
+        .adopt-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 40px auto;
+            padding: 60px;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+
+            .adopt-section h2 {
+                text-align: center;
+                font-size: 35px;
+                font-weight: bold;
+                color: #333;
+                width: 100%;
+                margin-bottom: 40px;
+            }
+
+        .left-img {
+            flex: 1;
+            text-align: center;
+            margin-right: 20px;
+            margin-left: 150px;
+        }
+
+            .left-img img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 15px;
+                box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            }
+
+        .right-content {
+            flex: 2;
+            margin-left: 90px;
+        }
+
+        .adopt-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+            .adopt-item img {
+                width: 40px;
+                height: 40px;
+                margin-right: 20px;
+            }
+
+        .adopt-item-content {
+            text-align: left;
+        }
+
+            .adopt-item-content h3 {
+                font-size: 20px;
+                font-weight: bold;
+                margin: 0;
+                color: #333;
+            }
+
+            .adopt-item-content p {
+                font-size: 16px;
+                color: #555;
+                margin: 5px 0 0;
+                line-height: 1.5;
+            }
+
+        .how-it-works {
+            background-color: #B5C7EB;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+            .how-it-works h2 {
+                font-size: 30px;
+                font-weight: bold;
+                margin-bottom: 40px;
+            }
+
+            .how-it-works .steps {
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 40px;
+            }
+
+            .how-it-works .step {
+                max-width: 250px;
+                text-align: center;
+            }
+
+                .how-it-works .step img {
+                    width: 60px;
+                    height: 60px;
+                    margin-bottom: 20px;
+                }
+
+                .how-it-works .step h3 {
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+
+                .how-it-works .step p {
+                    font-size: 16px;
+                    color: #555;
+                }
+
+        /* Main Container */
+        .testimonial-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Image Styling */
+        .testimonial-image img {
+            width: 1100px; /* Adjust the width as per your requirement */
+            height: 550px;
+            border-radius: 0px;
+            display: block;
+            margin-top: 150px;
+        }
+
+        /* Overlay Content */
+        .testimonial-content {
+            position: absolute;
+            top: 50px; /* Adjust to move the card vertically */
+            left: 200px; /* Adjust to move the card horizontally */
+            background: rgba(181, 199, 235, 0.6); /* Semi-transparent background */
+            backdrop-filter: blur(10px); /* Blur effect */
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            max-width: 300px;
+        }
+
+            /* Purple Line Styling */
+            .testimonial-content::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 10px; /* Adjust as needed for alignment */
+                width: calc(100% - 20px); /* Adjust the width relative to the content */
+                height: 3px; /* Thickness of the line */
+                background-color: #6c5ce7; /* Purple color */
+                border-radius: 2px; /* Optional for rounded ends */
+            }
+
+            /* Text Styling */
+            .testimonial-content p {
+                margin: 0 0 8px;
+                font-size: 14px;
+                line-height: 1.5;
+                color: #333;
+            }
+
+            .testimonial-content strong {
+                display: block;
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .testimonial-content .author {
+                font-size: 14px;
+                font-style: italic;
+                color: #555;
+            }
+
+            .testimonial-content .subtext {
+                margin-top: 5px;
+                font-size: 12px;
+                color: #555;
+            }
+
+            .testimonial-content a {
+                color: #6c5ce7;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+                .testimonial-content a:hover {
+                    text-decoration: underline;
+                }
+
+        /*Adopt-love-section*/
+
+        .adopt-love-section {
+            text-align: center;
+            background-color: #9C89F5; /* Purple background matching the image */
+            padding: 50px 20px;
+            /*border-radius: 10px;*/
+            color: white;
+            margin: 40px auto; /* Add margin to separate from the previous section */
+            max-width: 100%; /* Make it full screen width */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for elevation */
+            margin-top: 60px; /* Add this property for spacing from the previous section */
+        }
+
+            .adopt-love-section h2 {
+                font-size: 28px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .adopt-love-section p {
+                font-size: 16px;
+                line-height: 1.6;
+                magin-bottom: 30px;
+            }
+
+            .adopt-love-section .adopt-button {
+                background-color: white;
+                color: #6C5CE7; /* Purple for button text */
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+            }
+
+                .adopt-love-section .adopt-button:hover {
+                    background-color: #6C5CE7;
+                    color: white;
+                }
+
+
+        .faq-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+        }
+
+            .faq-item:last-child {
+                border-bottom: none;
+            }
+
+        .faq-question {
+            padding: 15px 20px;
+            cursor: pointer;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+            .faq-answer.open {
+                padding: 10px 20px;
+            }
+
+        .faq-question:hover {
+            background-color: #eaeaea;
+        }
+
+        .faq-question span {
+            transition: transform 0.3s ease;
+        }
+
+            .faq-question span.rotate {
+                transform: rotate(90deg);
+            }
+
+        .faq-answer p {
+            margin: 0;
+        }
+
+        /* pet care section */
+
+        .container {
+            text-align: center;
+            background-color: #9C89F5;
+            padding: 50px;
+            border-radius: 0px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(150px, 1fr)); /* Two columns layout */
+            grid-gap: 20px; /* Space between buttons */
+            justify-content: center; /* Horizontally center the grid */
+            justify-items: center; /* Center items within their grid cells */
+        }
+
+        .button {
+            width: 220px; /* Set the desired width */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px; /* Adjust padding if needed */
+            background-color: #ffffff;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+            .button img {
+                width: 30px;
+                height: 30px;
+                margin-right: 10px; /* Space between the image and text */
+            }
+
+
+
+            .button:active {
+                transform: translateY(2px);
+            }
+
+        .button-container > a:nth-child(5) {
+            grid-column: span 2; /* Fifth button spans two columns */
+            justify-self: center; /* Center the fifth button */
+        }
+
+        .button-container > a:nth-child(1),
+        .button-container > a:nth-child(2) {
+            margin-right: 0; /* Remove any margin between these two buttons */
+        }
+
+        .button-container > a:nth-child(1) {
+            margin-right: -350px; /* Decrease the space between "Report Animal Abuse" and "Dog Training" */
+        }
+
+        .button-container > a:nth-child(2) {
+            margin-left: -350px; /* Decrease the space between "Report Animal Abuse" and "Dog Training" */
+        }
+
+        .button-container > a:nth-child(3) {
+            margin-right: -350px; /* Decrease the space between "Report Animal Abuse" and "Dog Training" */
+        }
+
+        .button-container > a:nth-child(4) {
+            margin-left: -350px; /* Decrease the space between "Report Animal Abuse" and "Dog Training" */
+        }
+
+        /*last deign of the page*/
+        .lastbanner {
+            background-color: #9966CC; /* Purple color */
+            color: #fff; /* White text */
+            text-align: center;
+            padding: 10px 0; /* Adjust padding for spacing */
+            margin-top: 10px; /* Add 50px margin from the top */
+            height: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <form id="form1" runat="server">
+        <!-- Header -->
+        <div class="header">
+            <img src="image/resize.png" alt="Fur Angels Animal Shelter Logo">
+            <div class="icon-container" id="menu-icon">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a asp-controller="Home" asp-action="AboutUs">About us</a>
+                <a asp-controller="Home" asp-action="GroomingPage">Pet Grooming</a>
+                <a asp-controller="Home" asp-action="PetShop">Online Shop</a>
+                <a asp-controller="Home" asp-action="Consult">Vet consult</a>
+                <a asp-controller="Home" asp-action="PetAbuse">Report Animal Abuse</a>
+                <a asp-controller="Home" asp-action="Training">Dog Training</a>
+                <a asp-controller="Home" asp-action="CartItem">Blog</a>
+                <a asp-controller="Home" asp-action="Login">login</a>
+
+            </div>
+
+            <!-- Login Button -->
+            <a asp-controller="Home" asp-action="Login"><button class="login-button">Login</button></a>
+        </div>
+
+        <!-- Banner -->
+        <div class="banner">
+            <img src="image/adorable-golden-retriever-outdoors.jpg" alt="Fur Angels Animal Shelter Logo">
+            <div class="content">
+                <h2>Re-Home and Adopt a Pet in India</h2>
+                <p>Every Pet Deserves a Good Home. #Adoptlove</p>
+                <a href="LoginPage.aspx" class="button">Adopt a Pet</a>
+            </div>
+        </div>
+
+        <!-- Adopt Section -->
+        <div class="adopt-section">
+            <h2>Your Pet Adoption Journey With FurAngels</h2>
+
+            <!-- Left Side: Dog Image -->
+            <div class="left-img">
+                <img src="image/adopt_me_1-removebg.png" alt="Adopt Me Dog">
+            </div>
+
+            <!-- Right Side: Content -->
+            <div class="right-content">
+                <div class="adopt-item">
+                    <img src="image/footprint.png" alt="Paw Print">
+                    <div class="adopt-item-content">
+                        <h3>Search Pet</h3>
+                        <p>Adopt a dog or cat who's right for you.<br>Simply enter your city above to start your search.</p>
+                    </div>
+                </div>
+
+                <div class="adopt-item">
+                    <img src="image/footprint.png" alt="Paw Print">
+                    <div class="adopt-item-content">
+                        <h3>Connect</h3>
+                        <p>Once you find a pet, click "show number"<br>to get contact info for their pet parent<br>or rescue. Contact them to learn more.</p>
+                    </div>
+                </div>
+
+                <div class="adopt-item">
+                    <img src="image/footprint.png" alt="Paw Print">
+                    <div class="adopt-item-content">
+                        <h3>AdoptLove</h3>
+                        <p>The rescue or pet parents will walk<br>you through their adoption process.<br>Prepare your home for the arrival of<br>your new furry family member.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How it Works Section -->
+        <div class="how-it-works">
+            <h2>How it works?</h2>
+            <div class="steps">
+                <div class="step">
+                    <img src="image/search-removebg-preview (1).png" alt="Search Icon">
+                    <h3>Search</h3>
+                    <p>Simply enter your city to start your search.</p>
+                </div>
+                <div class="step">
+                    <img src="image/msg-removebg-preview.png" alt="Meet Icon">
+                    <h3>Meet</h3>
+                    <p>Schedule your appointment to meet the pet you love.</p>
+                </div>
+                <div class="step">
+                    <img src="image/shopping-cart-removebg-preview.png" alt="Adopt Icon">
+                    <h3>Adopt</h3>
+                    <p>Finally adopt the dog or cat you love.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial Section -->
+        <div class="testimonial-card">
+            <div class="testimonial-image">
+                <img src="image/pet love boy.jpg" alt="Adoption Image">
+                <div class="testimonial-content">
+                    <p>
+                        <strong>
+                            I am very happy to adopt Olivia. I was fortunate enough to find her on FurAngels –
+                        </strong>
+                        <br>
+                        <span class="author">Sneha Patel</span>
+                    </p>
+                    <p class="subtext">We're The Pet People. <a href="#">Learn more.</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Section: AdoptLove -->
+        <div class="adopt-love-section">
+            <h2>#AdoptLove</h2>
+            <p>
+                Approximately 1478 dogs & cats die every day on road in India. FurAngels is on a mission to provide every dog and cat a home before 2035.
+                <br />It's just one of the many ways FurAngels gives back and helps you become a part of something larger. Join FurAngels Community
+                <br />and help setting up Pet houses in your surrounding for strays.
+            </p>
+            <button class="adopt-button" onclick="location.href='LoginPage.aspx';">Adopt Pet</button>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Why Should YOu Adopt Dog Or Cat?</span>
+                    <span>&#9654;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Did you know that over 2000 people per hour in India run a search right here looking to adopt a pet? Pet adoption is becoming the preferred way to find a new pet. Adoption will always be more convenient than buying a puppy for sale from a pet shop or finding a kitten for sale from a litter. Pet adoption brings less stress and more savings! So what are you waiting for? Go find that perfect pet for home!</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is fee to adopt a pet?</span>
+                    <span>&#9654;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No, there is no fee for pet adoption on Furangels. However, if you adopt from a different city pet owner/rescuer can ask for travel charges. In case if you find someone asking for charges you can write us at support@furangels.com.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How old do I need to be to adopt a pet?</span>
+                    <span>&#9654;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>You need to be at least 18+ years old to adopt</p>
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can you return an adopted pet?</span>
+                    <span>&#9654;</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We understand it can be hard to get an adjusted pet in the new home and vice versa, as long as your reason for returning is reasonable, you'll be welcome to put it up for adoption again</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pet Care Section -->
+        <div class="container">
+            <h1>Book Pet Care Service With FurAngles</h1>
+            <div class="button-container">
+                <a href="#" class="button">
+                    <img src="image/report animal abuse.jpg" alt="Report Animal Abuse">
+                    Report Animal Abuse
+                </a>
+                <a href="#" class="button">
+                    <img src="image/dog-training.jpg" alt="Dog Training">
+                    Dog Training
+                </a>
+                <a href="#" class="button">
+                    <img src="image/pet grooming.png" alt="Pet Grooming">
+                    Pet Grooming
+                </a>
+                <a href="#" class="button">
+                    <img src="image/pet consult.jpg" alt="Vet Consult" class="large-img">
+                    Vet Consult
+                </a>
+                <a href="#" class="button">
+                    <img src="image/pet-insurance.jpg" alt="Pet Insurance">
+                    Pet Insurance
+                </a>
+            </div>
+        </div>
+
+        <!--last design of the page-->
+        <div class="lastbanner">
+            FurAngles 2025
+        </div>
+
+
+    </form>
+
+    <!--Main Content-->
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <script>
+        // JavaScript to toggle dropdown menu
+        const menuIcon = document.getElementById("menu-icon");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+
+        menuIcon.addEventListener("click", function () {
+            if (dropdownMenu.style.display === "block") {
+                dropdownMenu.style.display = "none";
+            } else {
+                dropdownMenu.style.display = "block";
+            }
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function (event) {
+            if (!menuIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    </script>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const arrow = question.querySelector('span:last-child');
+
+            question.addEventListener('click', () => {
+                const isOpen = answer.classList.contains('open');
+                faqItems.forEach(i => {
+                    i.querySelector('.faq-answer').classList.remove('open');
+                    i.querySelector('.faq-answer').style.maxHeight = '0';
+                    i.querySelector('.faq-question span:last-child').classList.remove('rotate');
+                });
+
+                if (!isOpen) {
+                    answer.classList.add('open');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    arrow.classList.add('rotate');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+    body {
+        background: linear-gradient(135deg, #f3f4f6, #e0e7ff);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .consultation-form-container {
+        max-width: 750px;
+        margin: 50px auto;
+        padding: 40px;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .consultation-form-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 8px;
+        color: #444;
+        font-size: 15px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        font-size: 16px;
+        background-color: #f9fafb;
+        transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #7c3aed;
+        outline: none;
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+    }
+
+    .form-group textarea {
+        height: 140px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #7c3aed, #9333ea);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-btn:hover {
+        background: linear-gradient(135deg, #6d28d9, #7e22ce);
+    }
+
+    .paw-decorator {
+        width: 100%;
+        margin: 30px 0 0 0;
+        display: block;
+    }
+
+    /* Responsive adjustments */
+    media (max-width: 768px) {
+        .consultation-form-container {
+            padding: 25px;
+        }
+
+        .consultation-form-container h2 {
+            font-size: 24px;
+        }
+    }
+
+
+        /*last deign of the page*/
+        .lastbanner {
+            background-color: #9966CC; /* Purple color */
+            color: #fff; /* White text */
+            text-align: center;
+            padding: 10px 0; /* Adjust padding for spacing */
+            margin-top: 10px; /* Add 50px margin from the top */
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+   <div class="consultation-form-container">
+    <h2>Book a Vet Consultation</h2>
+
+    <div class="form-group">
+        <label for="petName">Pet's Name</label>
+        <input type="text" id="petName" placeholder="Enter your pet's name" />
+    </div>
+
+    <div class="form-group">
+        <label for="petType">Pet Type</label>
+        <select id="petType">
+            <option value="">Select pet type</option>
+            <option>Dog</option>
+            <option>Cat</option>
+            <option>Bird</option>
+            <option>Rabbit</option>
+            <option>Others</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="petAge">Pet's Age (Years)</label>
+        <input type="number" id="petAge" min="0" placeholder="Enter age of pet" />
+    </div>
+
+    <div class="form-group">
+        <label for="ownerName">Your Full Name</label>
+        <input type="text" id="ownerName" placeholder="Enter your name" />
+    </div>
+
+    <div class="form-group">
+        <label for="ownerEmail">Email Address</label>
+        <input type="email" id="ownerEmail" placeholder="Enter your email" />
+    </div>
+
+    <div class="form-group">
+        <label for="ownerPhone">Contact Number</label>
+        <input type="tel" id="ownerPhone" placeholder="Enter your contact number" />
+    </div>
+
+    <div class="form-group">
+        <label for="concern">Describe Your Concern</label>
+        <textarea id="concern" placeholder="Describe your pet's health issue..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="preferredDate">Preferred Consultation Date</label>
+        <input type="date" id="preferredDate" />
+    </div>
+
+    <button class="submit-btn">Submit Request</button>
+</div>
+ 
+
+</body>
+</html>

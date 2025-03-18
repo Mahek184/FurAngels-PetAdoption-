@@ -1,0 +1,1247 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        .header {
+            text-align: left;
+            background-color: #fff;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .header img {
+             max-width: 300px;
+             height: 50px;
+        }
+
+        .icon-container {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+
+        .icon-container i {
+            font-size: 30px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 1000;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .banner {
+            position: relative;
+            text-align: center;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+        }
+
+        .content {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            color: #333;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            overflow: hidden;
+            backdrop-filter: blur(30px);
+            border: 1px solid black;
+        }
+
+        .content h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 15px;
+        }
+
+        .content p {
+             font-size: 16px;
+             margin: 0 0 20px;
+        }
+
+        .content .button {
+             display: inline-block;
+             background-color: mediumpurple;
+             color: #000000;
+             text-decoration: none;
+             padding: 12px 25px;
+             border-radius: 10px;
+             font-size: 16px;
+             font-weight: bold;
+             transition: background-color 0.3s, color 0.3s;
+        }
+
+        .content .button:hover {
+             background-color: #6c5ce7;
+             color: #fff;
+        }
+
+        .adopt-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 40px auto;
+            padding: 90px;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+
+        .adopt-section h2 {
+             text-align: center;
+             font-size: 35px;
+             font-weight: bold;
+             color: #333;
+             width: 100%;
+             margin-bottom: 40px;
+        }
+
+        .left-img {
+            flex: 1;
+            text-align: center;
+            margin-right: 20px;
+            margin-left: 15px;
+        }
+
+        .left-img img {
+            max-width: 450px;
+            height: 450px;
+            border-radius: 5px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .right-content {
+            flex: 2;
+            margin-left: 90px;
+        }
+
+        .adopt-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .adopt-item img {
+            width: 40px;
+            height: 40px;
+            margin-right: 20px;
+        }
+
+        .adopt-item-content {
+            text-align: left;
+        }
+
+        .adopt-item-content h3 {
+             font-size: 20px;
+             font-weight: bold;
+             margin: 0;
+             color: #333;
+        }
+
+        .adopt-item-content p {
+             font-size: 16px;
+             color: #555;
+             margin: 5px 0 0;
+             line-height: 1.5;
+        }
+
+         /* Main Wrapper Styling */
+    .container-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 40px auto;
+        margin-top:-110px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    /* Left Box Styling */
+    .left-box {
+        background-color: #FBCB8B; /* Light orange background as in image */
+        padding: 40px 30px;
+        width: 55%; /* Adjust width */
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+
+    .left-box h2 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        line-height: 1.4;
+    }
+
+    .left-box ul {
+        padding-left: 20px;
+    }
+
+    .left-box li {
+        margin-bottom: 12px;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Right Image Styling */
+    .right-image {
+        width: 40%; /* Adjust width */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .right-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        object-fit: contain;
+    }
+
+    /* Responsive Design */
+    media screen and (max-width: 768px) {
+        .container-wrapper {
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .left-box, .right-image {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .left-box {
+            padding: 20px;
+        }
+    }
+
+
+    /* pricing-container */
+    .pricing-container {
+        display: flex;
+        align-items: center;
+            background-color: #EAEAEA;
+        padding: 40px;
+        max-width: 600px;
+        margin: 50px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        gap: 150px; /* Controls space between price and list */
+    }
+
+    /* Left Side Price Section */
+    .price-section {
+        font-family: 'Arial', sans-serif;
+        margin-left:30px;
+    }
+
+    .price-section h2 {
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .price-section p {
+        font-size: 36px;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+
+    .price-section span {
+        font-size: 12px;
+        color: #333;
+        margin-left: 3px;
+    }
+
+    /* Right Side List Section */
+    .services-list {
+        font-family: 'Arial', sans-serif;
+        font-size: 16px;
+        line-height: 2;
+    }
+
+    .services-list ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .services-list li {
+        margin-bottom: 5px;
+    }
+
+    /* Responsive Design */
+    media (max-width: 768px) {
+        .pricing-container {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .price-section, .services-list {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }    
+
+
+    /* Main Full-Width Container */
+    .dog-consultation-section {
+        display: flex;
+        width: 100%; /* Full width */
+        height: 300px; /* Fixed height */
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin: 20px 0; /* Optional margin for spacing */
+    }
+
+    .dog-consultation-image, .dog-consultation-content {
+        height: 100%;
+    }
+
+    .dog-consultation-image {
+        flex: 1;
+    }
+
+    .dog-consultation-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures the image fills its space */
+    }
+
+    .dog-consultation-content {
+        flex: 1;
+        background-color: #F9DB7B;
+        padding: 35px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        position: relative;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .dog-consultation-content h2 {
+        font-size: 40px;
+        margin: 0 0 20px 0;
+        font-weight: bold;
+        margin-top:-100px;
+    }
+
+    .dog-consultation-content p {
+        margin: 2px 0;
+        font-size: 17px;
+        line-height: 1.3;
+        
+    }
+
+    .dog-consultation-btn {
+        padding: 8px 25px;
+        background-color: #B48CC7;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 20px;
+        margin-top: 20px;
+        display: inline-block;
+    }
+
+    .dog-consultation-btn:hover {
+        background-color: #9D76B1;
+    }
+
+    /* Responsive Design */
+    media (max-width: 768px) {
+        .dog-consultation-section {
+            flex-direction: column;
+            height: auto;
+        }
+
+        .dog-consultation-content, .dog-consultation-image {
+            width: 100%;
+            height: 200px; /* Adjust as needed */
+        }
+
+        .dog-consultation-content {
+            align-items: center;
+            text-align: center;
+        }
+    }   
+
+    /* package section */
+      .package-section {
+        padding: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+            background-color: #C7D9DD;
+    }
+
+    .package-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin: 40px 0 30px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .tabs div {
+        padding-bottom: 5px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .tabs .active {
+        border-bottom: 3px solid #333;
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .package-card {
+        width: 270px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        position: relative;
+    }
+
+    .package-card img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .package-card h4 {
+        font-size: 18px;
+        margin: 15px 0 5px;
+    }
+
+    .price-sections {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        text-align: right;
+    }
+
+    .price-sections .price {
+        color: #d32f2f;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .price-sections .cut-price {
+        text-decoration: line-through;
+        color: grey;
+        font-size: 14px;
+    }
+
+    .package-card ul {
+        margin: 15px 0;
+        padding-left: 18px;
+    }
+
+    .package-card ul li {
+        margin-bottom: 8px;
+        list-style: none;
+        position: relative;
+        padding-left: 18px;
+        font-size: 14px;
+    }
+
+    .package-card ul li:before {
+        content: '✔';
+        position: absolute;
+        left: 0;
+        color: green;
+        font-size: 14px;
+    }
+
+    .package-card button {
+        width: 100%;
+        padding: 10px;
+            background-color: #7A73D1;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .package-card button:hover {
+        background-color: #ADB2D4;
+    }
+
+    .note {
+        text-align: center;
+        margin-top: 10px;
+        color: gray;
+        font-size: 13px;
+    }
+
+    /* Responsive */
+    media (max-width: 768px) {
+        .card-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    /* Review section */
+    .reviews-section {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+            background-color: #ffffff;
+    }
+
+    .reviews-title {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .reviews-container {
+        display: flex;
+        overflow: hidden;
+        scroll-behavior: smooth;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .review-card {
+        min-width: 270px;
+        max-width: 270px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background: white;
+        text-align: left;
+    }
+
+    .review-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .review-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: orange;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin-right: 10px;
+        text-transform: uppercase;
+    }
+
+    .review-name {
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+
+    .review-date {
+        font-size: 12px;
+        color: gray;
+    }
+
+    .review-stars {
+        margin: 5px 0;
+        color: #FFD700;
+    }
+
+    .review-text {
+        font-size: 14px;
+        color: #333;
+        margin-top: 10px;
+        height: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .slider-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .slider-buttons button {
+        padding: 10px 18px;
+        font-size: 14px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        border: 2px solid grey;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .slider-buttons button:hover {
+        background: black;
+    }
+
+    /* Responsive */
+    media (max-width: 768px) {
+        .review-card {
+            min-width: 80%;
+        }
+    }
+
+
+    /* after review */
+        .furangle-section {
+            background-color: #A18AA5; /* Background color */
+            color: white;
+            font-family: 'Georgia', serif; /* Stylish serif font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            max-width: 100%;
+            height: 300px;
+        }
+
+        .furangle-content {
+            max-width: 800px;
+        }
+
+        .furangle-title {
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .furangle-subtext {
+            font-size: 15px;
+            margin-top: 20px;
+            font-weight: bold;
+            opacity: 0.9;
+        }
+      
+        /* .vet-consult-wrapper */
+        .vet-consult-wrapper {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .vet-consult-wrapper h1 {
+             font-size: 28px;
+             color: #222;
+             font-weight: bold;
+             margin-bottom: 16px;
+             text-align: center;
+        }
+
+        .vet-consult-wrapper h2 {
+            font-size: 22px;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        .vet-consult-wrapper p {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .vet-consult-wrapper ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .vet-consult-wrapper ol {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .vet-consult-wrapper li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #000;
+        }
+
+        media (max-width: 768px) {
+            .vet-consult-wrapper {
+                padding: 15px;
+            }
+
+            .vet-consult-wrapper h1 {
+                font-size: 24px;
+            }
+
+            .vet-consult-wrapper h2 {
+                font-size: 20px;
+            }
+        }
+        
+        
+        /*last deign of the page*/
+        .paw-border {
+            width: 100%;
+            overflow: hidden;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+            .paw-border img {
+                width: 100%; /* Adjust this if you want fixed width like 1350px */
+                max-width: 1350px; /* Keep it responsive */
+                height: 250px;
+                display: block;
+            }
+
+        .lastbanner {
+            background-color: #4E4E61; /* Adjust color to your preference */
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 16px;
+            margin-top: 0;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+ </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <img src="/image/resize.png" alt="Fur Angels Animal Shelter Logo">
+        <div class="icon-container" id="menu-icon">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+            <a href="HomePage.aspx">Home</a>
+            <a asp-controller="Home" asp-action="AboutUs">About Us</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Report Animal Abuse</a>
+            <a href="#">Dog Training</a>
+            <a href="#">Vet Consult</a>
+            <a href="#">Blog</a>
+            <a href="LoginPage.aspx">Login</a>
+
+        </div>
+    </div>
+
+
+    <!-- Banner -->
+    <div class="banner">
+        <img src="~/image/vet consult bg.jpg" alt="Golden Retriever">
+        <div class="content">
+            <h2> Book Online Vet Consultation </h2>
+            <p>Book Trusted Veterinary Consultation for Cat or Dog. Text & Video Call Vet Consultation.</p>
+            <a asp-controller="Home" asp-action="Consultform" class="button"> Book a Vet Consultation</a>
+        </div>
+    </div>
+
+    <!-- Adopt Section -->
+    <div class="adopt-section">
+        <h2>How Online Veterinarian Service works?</h2>
+
+        <!-- Left Side: Dog Image -->
+        <div class="left-img">
+            <img src="~/image/male vet consult.jpg" alt="Adopt Me Dog">
+        </div>
+
+        <!-- Right Side: Content -->
+        <div class="right-content">
+            <div class="adopt-item">
+                <img src="~/image/footprint.png" alt="Paw Print">
+                <div class="adopt-item-content">
+                    <h3>Submit Your Query</h3>
+                    <p>
+                        Have a question about your pet's health, nutrition, behavior,
+                        or any other concern? Simply share your query through our 
+                        platform. You can ask anything, from clarifications about 
+                        unusual symptoms to general advice on maintaining your pet's well-being.
+                    </p>
+                </div>
+            </div>
+
+            <div class="adopt-item">
+                <img src="~/image/dog-house.png" alt="Paw Print">
+                <div class="adopt-item-content">
+                    <h3> Share Details About Your Pet </h3>
+                    <p>
+                        To help our veterinarians provide the most accurate and personalized advice, 
+                        share relevant details about your pet, such as their age, breed, medical history, 
+                        and current condition. If applicable, The more information you provide, the better
+                        we can assist you.
+                    </p>
+                </div>
+            </div>
+
+            <div class="adopt-item">
+                <img src="~/image/footprint.png" alt="Paw Print">
+                <div class="adopt-item-content">
+                    <h3>AdoptLove</h3>
+                    <p>
+                        After reviewing your query and any accompanying details, a licensed
+                        veterinarian will provide a detailed response tailored to your pet's 
+                        specific needs. Depending on the complexity of the issue, the
+                        veterinarian may either respond via text or initiate a LIVE chat or video 
+                        session to discuss the matter in real-time.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Main Wrapper -->
+    <div class="container-wrapper">
+        <!-- Left Side Text Box -->
+        <div class="left-box">
+            <h2>Curated by vets<br />for your pet's unique needs</h2>
+            <ul>
+                <li>24/7 advice from India's Qualified vet wherever you are.</li>
+                <li>Quick access, right when you need one. No appointment necessary.</li>
+                <li>Available from any smartphone, or desktop device.</li>
+                <li>Avoid the Stress of Travel and Save Time.</li>
+            </ul>
+        </div>
+
+        <!-- Right Side Image -->
+        <div class="right-image">
+            <img src="~/image/vet consult injurd.jpg" alt="Pet Care Image" />
+        </div>
+    </div>
+
+
+    <!--pricing-container -->
+    <div class="pricing-container">
+        <!-- Left Side Price Info -->
+        <div class="price-section">
+            <h2>Starts At</h2>
+            <p>₹199 <span>Per Appointment</span></p>
+        </div>
+
+        <!-- Right Side Services List -->
+        <div class="services-list">
+            <ul>
+                <li>On Demand Consultations</li>
+                <li>Digestive Problems</li>
+                <li>Wellness and Prevention</li>
+                <li>Anxiety Management</li>
+                <li>Skin Health</li>
+                <li>Mobility Improvement</li>
+                <li>Dental Health</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Main Design Layout -->
+    <div class="dog-consultation-section">
+        <!-- Left Image -->
+        <div class="dog-consultation-image">
+            <img src="~/image/vet cute puppy.jpg" alt="Dog Consultation">
+        </div>
+
+        <!-- Right Text Content -->
+        <div class="dog-consultation-content">
+            <h2>Dog Consultation</h2>
+            <p>Nutrition Consultation</p>
+            <p>Dog Parenting Management</p>
+            <p>Behavioral Training Tips (Aggression, Biting, Jumping)</p>
+            <a href="#" class="dog-consultation-btn">Book a Dog Consultation</a>
+        </div>
+    </div>
+
+
+    <!-- package section -->
+    <div class="package-section">
+        <div class="package-title">Vet Packages and Rates</div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div id="onlineVetTab" class="active" onclick="showTab('onlineVet')">Online Vet</div>
+            <div id="homeVisitTab" onclick="showTab('homeVisit')">Home Visit</div>
+        </div>             
+
+        <!-- Online Vet Section -->
+        <div id="onlineVet" class="card-container">
+            <!-- Card 1 -->
+            <div class="package-card">
+                <img src="~/image/spa bath.png" alt="Vet Icon">
+                <h4>Online Vet</h4>
+                <div class="price-sections">
+                    <div class="price">₹199</div>
+                    <div class="cut-price">₹329</div>
+                </div>
+                <ul>
+                    <li>1 time consultation</li>
+                    <li>Call & Video Consultancy</li>
+                    <li>Personalized Advice</li>
+                </ul>
+                <a asp-controller="Home" asp-action="Vetconsultform"><button>Book A Veterinarian</button></a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="package-card">
+                <img src="~/image/spa bath.png" alt="Vet Icon">
+                <h4>Essential Care</h4>
+                <div class="price-sections">
+                    <div class="price">₹699</div>
+                    <div class="cut-price">₹829</div>
+                </div>
+                <ul>
+                    <li>1 Week Call/Video Consultancy</li>
+                    <li>Curated vet recommendations</li>
+                    <li>Unlimited chat with veterinary professionals</li>
+                    <li>Ticks & Fleas Preventive</li>
+                </ul>
+                <button>Book A Veterinarian</button>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="package-card">
+                <img src="~/image/spa bath.png" alt="Nutrition Icon">
+                <h4>Pet Nutrition Consultation</h4>
+                <div class="price-sections">
+                    <div class="price">₹1499</div>
+                    <div class="cut-price">₹1799</div>
+                </div>
+                <ul>
+                    <li>1:1 Call/Video Consultation</li>
+                    <li>Diet, Health Issues/Concerns</li>
+                    <li>Supplementation for health</li>
+                    <li>Better weight & satiety</li>
+                    <li>Healthy Dog Feeding Guide</li>
+                    <li>Custom nutrition for pets</li>
+                    <li>Pet Parenting Management</li>
+                    <li>Home-cooked diet plans</li>
+                </ul>
+                <button>Book A Consultant</button>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="package-card">
+                <img src="~/image/spa bath.png" alt="Behavioral Icon">
+                <h4>Online Behavioral Consultations</h4>
+                <div class="price-sections">
+                    <div class="price">₹1299</div>
+                    <div class="cut-price">₹1559</div>
+                </div>
+                <ul>
+                    <li>New Pet Parenting</li>
+                    <li>Separation Anxiety/Isolation Distress</li>
+                    <li>Aggression towards dogs & strangers</li>
+                    <li>Enhancing dog’s day to day life</li>
+                    <li>Enrichment + Mental stimulation</li>
+                    <li>Barking</li>
+                    <li>Destructive behavior</li>
+                    <li>Rushing the front door</li>
+                    <li>Pulling on the leash</li>
+                    <li>Jumping up</li>
+                </ul>
+                <button>Book A Consultant</button>
+            </div>
+        </div>
+
+
+        <!-- Home Visit Section -->
+        <div id="homeVisit" class="card-container" style="display:none;">
+            <div class="package-card">
+                <img src="~/image/spa bath.png" alt="Home Visit Icon">
+                <h4>Home Visit*</h4>
+                <div class="price-section">
+                    <div class="price">₹699</div>
+                    <div class="cut-price">₹839</div>
+                </div>
+                <hr />
+                <ul>
+                    <li>Home Consultation</li>
+                    <li>Full Body Health Checkup</li>
+                    <li>Nutrition and Food Guidance</li>
+                    <li>Medications charged as per requirements</li>
+                </ul>
+                <button>Book A Veterinarian</button>
+            </div>
+        </div>
+
+        <div class="note">*Available in selected cities only</div>
+    </div>
+
+
+    <!-- Review section -->
+    <div class="reviews-section">
+        <div class="reviews-title">Reviews from Our Happy Pet Parents</div>
+
+        <div class="reviews-container" id="reviewsContainer">
+            <!-- Review 1 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar" style="background: blue;">S</div>
+                    <div>
+                        <div class="review-name">Sudha</div>
+                        <div class="review-date">27 Feb, 2025</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <div class="review-text">Quick support. Thank you Dr. Vikas. Will wait for results. First time I was set up with Vet Dr. Soni...</div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar" style="background: orangered;">D</div>
+                    <div>
+                        <div class="review-name">Debjani</div>
+                        <div class="review-date">26 Feb, 2025</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <div class="review-text">He's incredibly kind and understanding with dogs, and his advice was ideal. He even followed up after...</div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar" style="background: orangered;">D</div>
+                    <div>
+                        <div class="review-name">Debasis</div>
+                        <div class="review-date">27 Jan, 2025</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <div class="review-text">ASWM, INSTANT CALL AND GIVE MEDICINE IN A MINUTE. GO FOR IT.</div>
+            </div>
+
+            <!-- Review 4 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar" style="background: orangered;">V</div>
+                    <div>
+                        <div class="review-name">Vasudh</div>
+                        <div class="review-date">01 Dec, 2024</div>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <div class="review-text">Great service, listens to concerns properly with professionalism. Highly recommended for you.</div>
+            </div>
+        </div>
+
+
+
+        <!-- Slider Buttons -->
+        <div class="slider-buttons">
+            <button onclick="scrollReviews(-1)">Previous</button>
+            <button onclick="scrollReviews(1)">Next</button>
+        </div>
+    </div>
+
+
+    <div class="furangle-section">
+        <div class="furangle-content">
+            <div class="furangle-title">
+                FurAngle is India's leading provider of trusted online veterinary telehealth services.
+                Our experienced veterinarians deliver prompt, personalized, and expert advice for all
+                your pet care concerns.
+            </div>
+            <div class="furangle-subtext">
+                All our Veterinarians pass FurAngle Enhanced Background Check
+            </div>
+        </div>
+    </div>
+
+
+    <!-- vet-consult-wrapper -->
+    <div class="vet-consult-wrapper">
+        <h1>Introducing Online Vet Consultation at ThePetNest - Expert Care at Your Fingertips</h1>
+
+        <p>Welcome to ThePetNest’s Online Vet Consultation service, where expert veterinary care meets the convenience and comfort of your home. In today’s fast-paced world, ensuring your pet receives timely and professional healthcare is crucial, but finding the time for a vet visit can be challenging. That’s where we step in. ThePetNest, located in the heart of the digital age, offers comprehensive online vet consultations, blending expertise, convenience, and compassion.</p>
+
+        <h2>Immediate Access to Veterinary Care</h2>
+        <p>Whether you’re seeking a free vet consultation near me or need an emergency vet consultation, our platform provides immediate access to veterinary professionals. With vet online consult, you can connect with licensed veterinarians ready to assist with your pet’s health concerns, offering vets free consultation and advice when you need it most.</p>
+
+        <h2>Comprehensive Online Consultation Services</h2>
+        <p>Our vet consultation service covers a wide range of pet health aspects, from routine inquiries to urgent health concerns. We understand that every moment matters, which is why our 5-minute veterinary consult and vet phone consultation options are designed to offer quick, reliable answers to your pressing questions.</p>
+
+        <ul>
+            <li><span class="highlight">Virtual Vet Consult:</span> A seamless service allowing pet owners to connect with vets via video call, providing a personal touch and enabling vets to visually assess your pet’s condition.</li>
+            <li><span class="highlight">Emergency Online Vet Consultation:</span> For urgent care needs, our emergency service ensures your pet’s health issues are addressed promptly, offering peace of mind in critical situations.</li>
+            <li><span class="highlight">Online Dog Consultation Near Me:</span> Our initiative to make pet healthcare accessible includes free initial consultations for dogs, ensuring your furry friend’s well-being without immediate costs.</li>
+        </ul>
+
+        <h2>Why Choose ThePetNest’s Online Vet Consultation?</h2>
+        <ul>
+            <li><span class="highlight">Ease of Access:</span> No more worrying about scheduling appointments or travel time; access expert vet care from anywhere, anytime.</li>
+            <li><span class="highlight">Expertise at Your Disposal:</span> Our team of experienced veterinarians is equipped to provide comprehensive advice, diagnosis, and treatment plans.</li>
+            <li><span class="highlight">Cost-Effective Solutions:</span> With options like free consultation vets and consult vet services, we offer cost-effective alternatives to traditional vet visits.</li>
+            <li><span class="highlight">Personalized Care:</span> Tailored advice and treatment options that cater specifically to your pet’s needs, ensuring the best possible care.</li>
+        </ul>
+
+        <h2>How It Works?</h2>
+        <ol>
+            <li><span class="highlight">Schedule Your Consultation:</span> Choose a convenient time for your online vet consultation.</li>
+            <li><span class="highlight">Meet with a Vet Online:</span> Connect via video call or phone with one of our experienced veterinarians.</li>
+            <li><span class="highlight">Receive Personalized Vet Care:</span> Get immediate advice, diagnosis, and treatment plan tailored to your pet’s needs.</li>
+        </ol>
+
+        <h2>Ready for Expert Online Veterinary Care?</h2>
+        <p>Don’t let the stress of scheduling and traveling to vet appointments put your pet’s health on hold. ThePetNest’s Online Vet Consultation service is here to provide expert care, guidance, and peace of mind, all from the comfort of your home. Contact us today to schedule your online vet consultation free or explore our range of online vet services. Your pet’s health and happiness are just a click away with ThePetNest.</p>
+    </div>
+
+
+
+    <!--last design of the page-->
+    <!-- Paw Border Design -->
+    <div class="paw-border">
+        <img src="~/image//paw row.png" alt="Paw Border" />
+    </div>
+
+    <div class="lastbanner">
+        FurAngles 2025
+    </div>
+
+
+
+    <script>
+        // JavaScript to toggle dropdown menu
+        const menuIcon = document.getElementById("menu-icon");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+
+        menuIcon.addEventListener("click", function () {
+            if (dropdownMenu.style.display === "block") {
+                dropdownMenu.style.display = "none";
+            } else {
+                dropdownMenu.style.display = "block";
+            }
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function (event) {
+            if (!menuIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    </script>
+
+    <script>
+        function showTab(tabName) {
+            // Hide both tabs
+            document.getElementById('onlineVet').style.display = 'none';
+            document.getElementById('homeVisit').style.display = 'none';
+
+            // Remove active class
+            document.getElementById('onlineVetTab').classList.remove('active');
+            document.getElementById('homeVisitTab').classList.remove('active');
+
+            // Show selected tab
+            document.getElementById(tabName).style.display = 'flex';
+            // Add active class to selected tab
+            if (tabName === 'onlineVet') {
+                document.getElementById('onlineVetTab').classList.add('active');
+            } else {
+                document.getElementById('homeVisitTab').classList.add('active');
+            }
+        }
+    </script>
+
+    <script>
+        function scrollReviews(direction) {
+            var container = document.getElementById('reviewsContainer');
+            var scrollAmount = 300; // Adjust this value if needed
+
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+   
+
+</body>
+</html>

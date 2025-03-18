@@ -1,0 +1,511 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            text-align: left;
+            background-color: #fff;
+            padding: 20px 0;
+            position: relative;
+        }
+
+            .header img {
+                max-width: 300px;
+                height: 50px;
+            }
+
+        .icon-container {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+
+            .icon-container i {
+                font-size: 30px;
+                color: #333;
+                cursor: pointer;
+            }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100px; /* Adjust to place it exactly below the icon */
+            left: 50%; /* Align menu center with the icon */
+            transform: translateX(-50%) translateX(-70px); /* Center the menu */
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 1000;
+        }
+
+            .dropdown-menu a {
+                display: block;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+
+                .dropdown-menu a:hover {
+                    background-color: #f0f0f0;
+                }
+
+        /* Background styling */
+        .about-section {
+            position: relative;
+            background: url('/image/about-bg.jpg') no-repeat center center/cover;
+            height: 450px; /* Increased height */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Move content to the left */
+            text-align: left; /* Align text to the left */
+            color: white;
+            width: 100%;
+            padding-left: 100px; /* Space from the left */
+            margin-top: -10px;
+        }
+            /* Dark overlay for better text visibility */
+            .about-section::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            }
+
+        /* Text styling */
+        .about-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px; /* Limit text width for better readability */
+        }
+
+            .about-content h1 {
+                font-size: 42px;
+                font-weight: bold;
+            }
+
+            .about-content p {
+                font-size: 18px;
+            }
+
+            .about-content a {
+                color: #3da9fc;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+                .about-content a:hover {
+                    text-decoration: underline;
+                }
+
+        /* content-container */
+        .full-width-container {
+            width: 100%;
+            padding: 50px 10%; /* Spacing from left and right */
+            text-align: left;
+            background-color: #ffffff;
+        }
+
+            .full-width-container p {
+                font-size: 18px;
+                line-height: 1.8;
+                color: #333;
+            }
+
+            .full-width-container a {
+                color: #007bff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+                .full-width-container a:hover {
+                    text-decoration: underline;
+                }
+
+        /* Top Section */
+        .top-section {
+            background-color: #F5F5F5;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+            .top-section h2 {
+                font-weight: bold;
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+        }
+
+        .stats {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #3d51ff;
+        }
+
+        .stats-label {
+            font-size: 16px;
+            font-weight: normal;
+            color: #333;
+        }
+
+        /* Features Section */
+        .features {
+            text-align: center;
+            padding: 30px;
+            background-color: #F5F5F5;
+        }
+
+            .features h1 {
+                font-weight: bold;
+                font-size: 23px;
+                margin-bottom: 20px;
+            }
+
+        .features-container {
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            font-size: 18px;
+        }
+
+            .features-list li {
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                margin-right: 80px;
+            }
+
+            .features-list i {
+                color: #28a745;
+                margin-right: 10px;
+                font-size: 18px;
+            }
+
+        /* Services Section */
+        .services {
+            text-align: center;
+            padding: 30px 10%;
+            background-color: #F5F5F5;
+        }
+
+            .services h1 {
+                font-weight: bold;
+                font-size: 25px;
+                margin-bottom: 20px;
+            }
+
+        .service-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .service-buttons a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 300px; /* Increased width */
+                height: 60px; /* Adjusted height */
+                margin: 10px;
+                font-size: 20px;
+                font-weight: bold;
+                text-decoration: none;
+                color: #333;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                background-color: #fff;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+                .service-buttons a:hover {
+                    background-color: #f0f0f0;
+                }
+
+                .service-buttons a img {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+
+            .service-buttons .orange-btn {
+                background-color: #ff8c00;
+                color: white;
+                border: none;
+            }
+
+                .service-buttons .orange-btn:hover {
+                    background-color: #e07b00;
+                }
+
+        .services p {
+            font-size: 16px;
+            color: #555;
+            text-align: center;
+            font-weight: bold;
+            max-width: 100%;
+            margin: 10px auto;
+            line-height: 1.4;
+        }
+
+        /*last deign of the page*/
+        .lastbanner {
+            background-color: #9966CC; /* Purple color */
+            color: #fff; /* White text */
+            text-align: center;
+            padding: 10px 0; /* Adjust padding for spacing */
+            margin-top: 10px; /* Add 50px margin from the top */
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Header -->
+        <div class="header">
+            <img src="~/image/resize.png" alt="Fur Angels Animal Shelter Logo">
+            <div class="icon-container" id="menu-icon">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <div class="dropdown-menu" id="dropdown-menu">
+                <a href="#">Home</a>
+
+                <a href="#">Pet Grooming</a>
+                <a href="#">Report Animal Abuse</a>
+                <a href="#">Dog Training</a>
+                <a href="#">Vet Consult</a>
+                <a href="#">Blog</a>
+                <a href="#">Login</a>
+
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="about-section">
+            <div class="about-content">
+                <h1>About ThePetNest</h1>
+                <p>Founded in 2024, <a href="#">ThePetNest</a> is India’s largest network of <br />5-star pet care service providers.</p>
+            </div>
+        </div>
+
+        <!-- Content-container -->
+        <div class="full-width-container">
+            <p>
+                Whether you need in-home pet grooming, pet boarding, pet training, dog walking, pet insurance, pet relocation, or vet on call,
+
+                <a href="#">ThePetNest</a> connects pet parents with pet care heroes who’ll treat their pet like family.
+
+            </p>
+
+            <p>
+                We understand your pet is family. And you can trust us to keep your pet happy, healthy, and sweet as ever.
+
+            </p>
+
+            <p>
+                But it’s not just about pet love. <strong>ThePetNest</strong> is also committed to making pet care safe, easy, and affordable so that everyone can
+                experience the unconditional love of a pet. Whatever you and your furr babies are into, we’re into it too. And we’ve got your back. Anytime. Anywhere.
+
+            </p>
+
+            <p>
+                <strong>ThePetNest</strong> donates a portion of every service to Pet NGOs & Rescue shelters through this program.
+                We also provide meals to shelter dogs in India.
+
+            </p>
+        </div>
+
+        <!-- Top Section -->
+        <!-- Top Section -->
+        <div class="top-section">
+            <h2>Millions of services booked. Thousands of wagging tails.</h2>
+            <div class="stats-container">
+                <div>
+                    <div class="stats">35+</div>
+                    <div class="stats-label">Cities</div>
+                </div>
+                <div>
+                    <div class="stats">1500+</div>
+                    <div class="stats-label">PetCare Heroes</div>
+                </div>
+                <div>
+                    <div class="stats">96%</div>
+                    <div class="stats-label">5-star reviews</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <h1>5-Star Petcare Heroes in your neighborhood</h1>
+
+            <div class="features-container">
+                <!-- Left Column (4 Services) -->
+                <ul class="features-list">
+                    <li style=" margin-left: 80px;"><i class="fas fa-check-circle"></i> Background or identity checks</li>
+                    <li style=" margin-left: 80px;"><i class="fas fa-check-circle"></i> Reservation protection</li>
+                    <li style=" margin-left: 80px;"><i class="fas fa-check-circle"></i> Ongoing service education</li>
+                    <li style=" margin-left: 80px;"><i class="fas fa-check-circle"></i> Trust and safety experts</li>
+                </ul>
+
+                <!-- Right Column (3 Services) -->
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> ThePetNest Guarantee</li>
+                    <li><i class="fas fa-check-circle"></i> 24/7 support</li>
+                    <li><i class="fas fa-check-circle"></i> Verified reviews</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Services Section -->
+        <div class="services">
+            <h1>Good Pets. Good People.</h1>
+            <p>Whether you need a pet groomer for the spa session or dog training for a well-behaved pet, ThePetNest got you, your pets, and pet’s lifestyle covered.</p>
+
+            <div class="service-buttons">
+                <a onclick="updateLastButton('Grooming')">
+                    <img src="~/image/about grooming icon.png" alt="Pet Grooming" />
+                    Pet Grooming
+                </a>
+                <a onclick="updateLastButton('Boarding')">
+                    <img src="~/image/About pet boarding.png" alt="Pet Boarding" />
+                    Pet Boarding
+                </a>
+                <a onclick="updateLastButton('Training')">
+                    <img src="~/image/about dog trainning.png" alt="Dog Training" />
+                    Dog Training
+                </a>
+                <a onclick="updateLastButton('Vet')">
+                    <img src="~/image/about dog vet.png" alt="Vet on Call" />
+                    Vet on Call
+                </a>
+                <a onclick="updateLastButton('Walking')">
+                    <img src="~/image/about dog walking.png" alt="Dog Walking" />
+                    Dog Walking
+                </a>
+                <a onclick="updateLastButton('Insurance')">
+                    <img src="~/image/about dog insurance.jpg" alt="Pet Insurance" />
+                    Pet Insurance
+                </a>
+                <a onclick="updateLastButton('Relocation')">
+                    <img src="~/image/about dog relocation.png" alt="Pet Relocation" />
+                    Pet Relocation
+                </a>
+                <a onclick="updateLastButton('Rehome')">
+                    <img src="~/image/about dog rehome.png" alt="Rehome a Pet" />
+                    Rehome a Pet
+                </a>
+                <a onclick="updateLastButton('Adopt')">
+                    <img src="~/image/about adopt a pet.png" alt="Adopt a Pet" />
+                    Adopt a Pet
+                </a>
+                <a onclick="updateLastButton('Blogs')">
+                    <img src="~/image/about dog blog.png" alt="Blogs" />
+                    Blogs
+                </a>
+                <a onclick="updateLastButton('Shop')">
+                    <img src="~/image/about dog shop.png" alt="Online Pet Shop" />
+                    Online Pet Shop
+                </a>
+                <a onclick="updateLastButton('Abuse')">
+                    <img src="~/image/about animal abuse.png" alt="Report Animal Abuse" />
+                    Report Animal Abuse
+                </a>
+
+                <!-- Last Button (Dynamically Updated) -->
+                <a id="orange-btn" class="orange-btn" onclick="redirectToService()">Book Now</a>
+            </div>
+
+            <p>ThePetNest is a pet lover’s other best friend — second only, of course, to your Pet. With customer support and India’s largest community of pet care service providers and pet parents, ThePetNest is the easiest way for pet parents to find and book-loving and trustworthy pet care service at Home.</p>
+        </div>
+
+        <!--last design of the page-->
+        <div class="lastbanner">
+            FurAngles
+        </div>
+
+    </form>
+
+    <script>
+        // JavaScript to toggle dropdown menu
+        const menuIcon = document.getElementById("menu-icon");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+
+        menuIcon.addEventListener("click", function () {
+            // Get the position of the menu icon
+            let rect = menuIcon.getBoundingClientRect();
+            dropdownMenu.style.top = rect.bottom + 15 + "px"; // Moves menu 20px further down
+            dropdownMenu.style.left = rect.left + rect.width / 2 - 70 + "px"; // Center align
+            dropdownMenu.style.transform = "translateX(-50%)"; // Adjust alignment
+
+            // Toggle dropdown visibility
+            if (dropdownMenu.style.display === "block") {
+                dropdownMenu.style.display = "none";
+            } else {
+                dropdownMenu.style.display = "block";
+            }
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function (event) {
+            if (!menuIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    </script>
+
+    <script>
+        function updateLastButton(serviceName) {
+            var lastButton = document.getElementById("orange-btn");
+            lastButton.innerText = "Book " + serviceName;
+            lastButton.setAttribute("data-service", serviceName);
+        }
+
+        function redirectToService() {
+            var selectedService = document.getElementById("orange-btn").getAttribute("data-service");
+            if (selectedService) {
+                window.location.href = selectedService.toLowerCase() + ".aspx";  // Redirect to the respective service page
+            }
+        }
+    </script>
+
+
+</body>
+</html>

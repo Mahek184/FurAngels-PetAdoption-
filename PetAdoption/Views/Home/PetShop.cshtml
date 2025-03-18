@@ -1,0 +1,1013 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 15px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+            .header img {
+                max-width: 300px;
+                height: 50px;
+            }
+
+        /* Icon Container */
+        .icon-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Icons */
+        .search-icon,
+        .cart-icon {
+            font-size: 28px;
+            cursor: pointer;
+            color: #000;
+            transition: color 0.3s ease;
+        }
+
+            .search-icon:hover,
+            .cart-icon:hover {
+                color: #D86F1D;
+            }
+
+        /* Slideshow Container */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            height: 450px;
+            overflow: hidden;
+        }
+
+        /* Slides */
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition: opacity 1s ease-in-out;
+        }
+
+            .slide img {
+                width: 100%;
+                height: 450px;
+                object-fit: cover;
+            }
+
+        /* Active slide */
+        .active {
+            display: block;
+        }
+
+        /* Text on Banner */
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Button */
+        .discover-btn {
+            display: inline-block;
+            background-color: #D86F1D;
+            color: white;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+            .discover-btn:hover {
+                background-color: #C45E1A;
+            }
+
+        /* Dots/Indicators */
+        .dots {
+            text-align: center;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+            .dot.active {
+                background-color: #333;
+            }
+
+        /*Pet Furniture section*/
+        .pet-furniture-section {
+            background-color: #1f3a52;
+            padding: 40px;
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .pet-furniture-section h2 {
+            text-align:left;
+            color:white;
+            font-size: 36px; /* Increase text size */
+            font-weight: bold;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .card-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Hide scrollbar */
+            margin-left:30px;
+            margin-right: 30px;
+        }
+
+        .card {
+            background-color: white;
+            color: black;
+            width: 250px;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 0 0 auto;
+        }
+
+            /* Custom Image Size */
+            .card img {
+                width: 220px; /* Adjust as needed */
+                height: 180px; /* Adjust as needed */
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+            .card button {
+                background-color: transparent;
+                border: 1px solid black;
+                padding: 10px;
+                width: 100%;
+                cursor: pointer;
+                border-radius: 5px;
+                font-weight: bold;
+            }
+
+                .card button:hover {
+                    background-color: black;
+                    color: white;
+                }
+
+        .view-all-btn {
+            margin-top: 20px;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .prev-arrow, .next-arrow {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .prev-arrow {
+            left: -20px;
+        }
+
+        .next-arrow {
+            right: -20px;
+        }
+
+            .prev-arrow:hover, .next-arrow:hover {
+                color: #D86F1D;
+            }
+
+        /* Pet toy section */
+        .pet-toys-section {
+            background-color: #AFC4E3; /* Dark blue background */
+            padding: 40px;
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .pet-toys-section h2 {
+            text-align: left;
+            color: black;
+            font-size: 36px; /* Increase text size */
+            font-weight: bold;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .card-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Hide scrollbar */
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+
+        .card {
+            background-color: white;
+            color: black;
+            width: 250px;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 0 0 auto;
+        }
+
+            /* Custom Image Size */
+            .card img {
+                width: 220px; /* Adjust as needed */
+                height: 180px; /* Adjust as needed */
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+            .card button {
+                background-color: transparent;
+                border: 1px solid black;
+                padding: 10px;
+                width: 100%;
+                cursor: pointer;
+                border-radius: 5px;
+                font-weight: bold;
+            }
+
+                .card button:hover {
+                    background-color: black;
+                    color: white;
+                }
+
+        .view-all-btn {
+            margin-top: 20px;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .prev-arrow, .next-arrow {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        /* Pet Accessories Section */
+        .pet-accessories-section {
+            background-color: #1f3a52; /* Light Blue Background */
+            padding: 40px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .pet-accessories-section h2 {
+            text-align: left;
+            color: white;
+            font-size: 36px; /* Increase text size */
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .card-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Hide scrollbar */
+            padding: 20px;
+        }
+
+        .card {
+            background-color: white;
+            color: black;
+            width: 250px;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 0 0 auto;
+        }
+
+        .card img {
+            width: 220px; /* Adjust width */
+            height: 180px; /* Adjust height */
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+          
+        .card button {
+            background-color: transparent;
+            border: 1px solid black;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .card button:hover {
+             background-color: black;
+             color: white;
+        }
+
+        .view-all-btn {
+            margin-top: 20px;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .prev-arrow, .next-arrow {
+            font-size: 28px; /* Smaller & Attractive */
+            cursor: pointer;
+            color: black;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+
+        /* Customer review section */
+        .customer-reviews-section {
+            background-color: #AAB8D2; /* Light blue background */
+            padding: 30px;
+            text-align: center;
+        }
+
+            .customer-reviews-section h2 {
+                font-size: 28px;
+                font-weight: bold;
+                color: black;
+            }
+
+        .overall-rating .stars {
+            font-size: 24px;
+            color: black;
+        }
+
+        .overall-rating p {
+            font-size: 18px;
+            color: black;
+        }
+
+        .reviews-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .review {
+            width: 40%;
+            text-align: center;
+            font-size: 16px;
+            color: black;
+        }
+
+            .review .stars {
+                font-size: 20px;
+                color: black;
+            }
+
+            .review h4 {
+                font-size: 18px;
+                margin-top: 10px;
+            }
+
+        .navigation-arrows {
+            margin-top: 20px;
+        }
+
+        .navigation-arrows .arrow {
+            font-size: 24px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .review {
+            background-color: #C7D9DD; /* Light background */
+            padding: 50px;
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            display: none; /* Initially hidden */
+            width: 35%; /* Adjust width for proper spacing */
+            margin: 10px auto; /* Centered */
+            text-align: center;
+        }
+      
+        /*last deign of the page*/
+        .lastbanner {
+            background-color: #9966CC; /* Purple color */
+            color: #fff; /* White text */
+            text-align: center;
+            padding: 10px 0; /* Adjust padding for spacing */      
+            height: 30px;
+        }
+
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        .cart-content {
+            background: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 50%;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <img src="~/image/resize.png" alt="Fur Angels Animal Shelter Logo" />
+
+        <div class="icon-container">
+            <i class="fa fa-search search-icon"></i>
+            <a href="/Home/CartItem"><i class="fa fa-shopping-cart cart-icon"></i></a>
+        </div>
+    </div>
+
+    <!-- Slideshow -->
+    <div class="slideshow-container">
+        <div class="slide active">
+            <img src="~/image/shop bg.jpg" alt="Slide 1">
+        </div>
+        <div class="slide">
+            <img src="~/image/DT7.jpg" alt="Slide 2">
+        </div>
+        <div class="slide">
+            <img src="~/image/DF3.jpg" alt="Slide 3">
+        </div>
+        <div class="slide">
+            <img src="~/image/DT1.jpg" alt="Slide 4">
+        </div>
+
+        <!-- Text on Slide -->
+        <div class="banner-text">
+            <h2>Whisker-Approved Delights</h2>
+            <p>Grab Up to 10% Off on Cat Food!</p>
+            <a href="#" class="discover-btn">Discover Me</a>
+        </div>
+
+        <!-- Dots/Indicators -->
+        <div class="dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+
+    <!-- Pet Furniture Section -->
+    <div class="pet-furniture-section">
+        <h2>Pet Furniture</h2>
+
+        <!-- Slider Container -->
+        <div class="slider-container">
+            <!-- Left Arrow -->
+            <i class="fa-solid fa-circle-arrow-left prev-arrow"></i>
+
+            <div class="card-slider">
+                <!-- Card 1 -->
+                <div class="card">
+                    <img src="~/image/DF6.jpg" alt="Dog Bed">
+                    <h3>TheFurAngels X Dogily Racoa Dog Sofa</h3>
+                    <p>⭐⭐⭐⭐ (3)</p>
+                    <p><del>₹26,999.00</del> ₹20,999.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <img src="~/image/DF4.jpg" alt="Dog Sofa">
+                    <h3>TheFurAngels XDogily Classic Dog Sofa</h3>
+                    <p>⭐⭐⭐⭐⭐ (1)</p>
+                    <p>₹14,999.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <img src="~/image/DF5.jpg" alt="Pet Sofa">
+                    <h3>TheFurAngels XDogily Classic Dog Sofa</h3>
+                    <p>⭐⭐⭐⭐ (1)</p>
+                    <p>₹10,999.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 4 -->
+                <div class="card">
+                    <img src="~/image/DF3.jpg" alt="Luxury Pet Bed">
+                    <h3>TheFurAngels XDogily Luxury Bed</h3>
+                    <p>⭐⭐⭐⭐⭐ (2)</p>
+                    <p>₹15,999.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 5 -->
+                <div class="card">
+                    <img src="~/image/dog-bed5.jpg" alt="Premium Dog Sofa">
+                    <h3>TheFurAngels XDogily Premium Sofa</h3>
+                    <p>⭐⭐⭐⭐ (4)</p>
+                    <p>₹22,999.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 6 -->
+                <div class="card">
+                    <img src="~/image/dog-bed6.jpg" alt="Modern Dog Sofa">
+                    <h3>TheFurAngels XDogily Modern Sofa</h3>
+                    <p>⭐⭐⭐⭐⭐ (3)</p>
+                    <p>₹18,999.00</p>
+                    <button>Add to cart</button>
+                </div>
+            </div>
+
+            <!-- Right Arrow -->
+            <i class="fa-solid fa-circle-arrow-right next-arrow"></i>
+        </div>
+
+        <button class="view-all-btn">View all</button>
+    </div>
+
+    <!-- Pet Toys Section -->
+    <div class="pet-toys-section">
+        <h2>Pet Toys</h2>
+
+        <div class="slider-container">
+            <!-- Left Arrow -->
+            <i class="fa-solid fa-circle-arrow-left prev-arrow"></i>
+
+            <div class="card-slider">
+                <!-- Card 1 -->
+                <div class="card">
+                    <img src="~/image/DT1.jpg" alt="Rubber Ball">
+                    <h3>TheFurAngels X Rubber Spiked hard ball</h3>
+                    <p>⭐⭐⭐⭐⭐ (5)</p>
+                    <p>₹200.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <img src="~/image/DT5.jpg" alt="Dog Toy Sofa">
+                    <h3>TheFurAngels XDogily Dassic Dog Sofa</h3>
+                    <p>⭐⭐⭐ (3)</p>
+                    <p>₹1,000.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <img src="~/image/DT2.jpg" alt="Dog Toy Sofa">
+                    <h3>TheFurAngels XDogily Dassic Dog Sofa</h3>
+                    <p>⭐⭐ (2)</p>
+                    <p>₹999.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 4 -->
+                <div class="card">
+                    <img src="~/image/DT3.jpg" alt="Dog Toy Sofa">
+                    <h3>TheFurAngels XDogily Dassic Dog Sofa</h3>
+                    <p>⭐⭐ (2)</p>
+                    <p>₹999.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 4 -->
+                <div class="card">
+                    <img src="~/image/DT6.jpg" alt="Dog Toy Sofa">
+                    <h3>TheFurAngels XDogily Dassic Dog Sofa</h3>
+                    <p>⭐⭐ (2)</p>
+                    <p>₹999.00</p>
+                    <button>Add to cart</button>
+                </div>
+            </div>
+
+            <!-- Right Arrow -->
+            <i class="fa-solid fa-circle-arrow-right next-arrow"></i>
+        </div>
+
+        <button class="view-all-btn">View all</button>
+    </div>
+
+    <!-- Pet Accessories Section -->
+    <div class="pet-accessories-section">
+        <h2>Pet Accessories</h2>
+
+        <!-- Slider Container -->
+        <div class="slider-container">
+            <!-- Left Arrow -->
+            <i class="fa-solid fa-circle-arrow-left prev-arrow"></i>
+
+            <div class="card-slider">
+                <!-- Card 1 -->
+                <div class="card">
+                    <img src="~/image/DA2.PNG" alt="Harness">
+                    <h3>TheFurAngels X Harness For Dogs</h3>
+                    <p>⭐⭐☆☆ (2)</p>
+                    <p>₹999.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <img src="~/image/DA6.jpg" alt="Dog Leash">
+                    <h3>TheFurAngels XDog Leash</h3>
+                    <p>⭐⭐⭐⭐⭐ (5)</p>
+                    <p>₹1,500.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <img src="~/image/DA3.PNG" alt="Dog Collar">
+                    <h3>TheFurAngels XDogily Classic Dog Collar</h3>
+                    <p>⭐⭐⭐⭐⭐ (5)</p>
+                    <p>₹1,000.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 4 -->
+                <div class="card">
+                    <img src="~/image/DA5.jpg" alt="Dog Collar">
+                    <h3>TheFurAngels XDogily Classic Dog Collar</h3>
+                    <p>⭐⭐⭐⭐⭐ (5)</p>
+                    <p>₹1,000.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 5 -->
+                <div class="card">
+                    <img src="~/image/DA4.PNG" alt="Dog Collar">
+                    <h3>TheFurAngels XDogily Classic Dog Collar</h3>
+                    <p>⭐⭐⭐⭐⭐ (5)</p>
+                    <p>₹1,000.00</p>
+                    <button>Add to cart</button>
+                </div>
+                <!-- Card 6 -->
+                <div class="card">
+                    <img src="~/image/DA1.jpg" alt="Dog Collar">
+                    <h3>TheFurAngels XDogily Classic Dog Collar</h3>
+                    <p>⭐⭐⭐⭐⭐ (5)</p>
+                    <p>₹1,000.00</p>
+                    <button>Add to cart</button>
+                </div>
+            </div>
+
+            <!-- Right Arrow -->
+            <i class="fa-solid fa-circle-arrow-right next-arrow"></i>
+        </div>
+
+        <button class="view-all-btn">View all</button>
+    </div>
+
+    <!-- Customer reviews section-->
+    <div class="customer-reviews-section">
+        <h2>Let customers speak for us</h2>
+
+        <div class="overall-rating">
+            <span class="stars">★★★★★</span>
+            <p>from 402 reviews</p>
+        </div>
+
+        <div class="reviews-container">
+            <div class="review">
+                <span class="stars">★★★★☆</span>
+                <p>Good</p>
+                <p>Bhot acha raha Thank You</p>
+                <h4>Lovekush</h4>
+            </div>
+
+            <div class="review">
+                <span class="stars">★★★★★</span>
+                <p>Excellent staff and service</p>
+                <p>1. My Leo is a big size shy dog, was handled wonderfully well by the staff.</p>
+                <h4>Vivek Sawhney</h4>
+            </div>
+
+            <div class="review">
+                <span class="stars">★★★★★</span>
+                <p>Highly Recommend!</p>
+                <p>Very professional and friendly service. My pup enjoyed his stay!</p>
+                <h4>Ananya Sharma</h4>
+            </div>
+
+            <div class="review">
+                <span class="stars">★★★★☆</span>
+                <p>Great Experience</p>
+                <p>The staff took great care of my dog. Will definitely come back.</p>
+                <h4>Rohan Mehta</h4>
+            </div>
+
+            <div class="review">
+                <span class="stars">★★★★★</span>
+                <p>Awesome!</p>
+                <p>My dog loved the place! The staff was kind and took extra care of him.</p>
+                <h4>Pooja Verma</h4>
+            </div>
+        </div>
+
+        <div class="navigation-arrows">
+            <span class="arrow">&#x276E;</span>
+            <span class="arrow">&#x276F;</span>
+        </div>
+    </div>
+
+
+    <!--last design of the page-->
+    <div class="lastbanner">
+        FurAngles 2025
+    </div>
+
+    <div class="container">
+        <h2>Pet Furniture, Toys & Accessories</h2>
+
+        <!-- Example Product -->
+        <div class="product">
+            <img src="https://via.placeholder.com/150" alt="Pet Toy">
+            <h4>Pet Toy</h4>
+            <p>$10.00</p>
+            <button class="btn btn-primary add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="cart-content">
+            <span class="close">&times;</span>
+            <h2>Your Cart</h2>
+            <p>Item added successfully!</p>
+            <button class="btn btn-success">Checkout</button>
+        </div>
+    </div>
+
+
+    <script>
+        let slideIndex = 0;
+        let slides = document.querySelectorAll(".slide");
+        let dots = document.querySelectorAll(".dot");
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.display = i === index ? "block" : "none";
+                dots[i].classList.toggle("active", i === index);
+            });
+        }
+
+        function nextSlide() {
+            slideIndex = (slideIndex + 1) % slides.length;
+            showSlide(slideIndex);
+        }
+
+        function currentSlide(index) {
+            slideIndex = index;
+            showSlide(slideIndex);
+        }
+
+        setInterval(nextSlide, 2000); // Change slide every 20 seconds
+
+        showSlide(slideIndex);
+    </script>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const slider = document.querySelector(".card-slider");
+            const prev = document.querySelector(".prev-arrow");
+            const next = document.querySelector(".next-arrow");
+
+            next.addEventListener("click", () => {
+                slider.scrollBy({ left: 300, behavior: "smooth" });
+            });
+
+            prev.addEventListener("click", () => {
+                slider.scrollBy({ left: -300, behavior: "smooth" });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const slider = document.querySelector(".card-slider");
+            const prevArrow = document.querySelector(".prev-arrow");
+            const nextArrow = document.querySelector(".next-arrow");
+            const cardWidth = document.querySelector(".card").offsetWidth + 20; // Card width + gap
+
+            // Move slider left
+            prevArrow.addEventListener("click", function () {
+                slider.scrollBy({ left: -cardWidth, behavior: "smooth" });
+            });
+
+            // Move slider right
+            nextArrow.addEventListener("click", function () {
+                slider.scrollBy({ left: cardWidth, behavior: "smooth" });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const petFurnitureSection = document.querySelector(".pet-furniture-section");
+            const petAccessoriesSection = document.querySelector(".pet-accessories-section");
+
+            function setupSlider(section) {
+                const slider = section.querySelector(".card-slider");
+                const prevArrow = section.querySelector(".prev-arrow");
+                const nextArrow = section.querySelector(".next-arrow");
+                const cardWidth = slider.querySelector(".card").offsetWidth + 20; // Card width + gap
+
+                if (prevArrow && nextArrow) {
+                    prevArrow.addEventListener("click", function () {
+                        slider.scrollBy({ left: -cardWidth, behavior: "smooth" });
+                    });
+
+                    nextArrow.addEventListener("click", function () {
+                        slider.scrollBy({ left: cardWidth, behavior: "smooth" });
+                    });
+                }
+            }
+
+            setupSlider(petFurnitureSection);
+            setupSlider(petAccessoriesSection);
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const petToysSection = document.querySelector(".pet-toys-section");
+
+            function setupSlider(section) {
+                const slider = section.querySelector(".card-slider");
+                const prevArrow = section.querySelector(".prev-arrow");
+                const nextArrow = section.querySelector(".next-arrow");
+                const cardWidth = slider.querySelector(".card").offsetWidth + 20; // Card width + gap
+
+                if (prevArrow && nextArrow) {
+                    prevArrow.addEventListener("click", function () {
+                        slider.scrollBy({ left: -cardWidth, behavior: "smooth" });
+                    });
+
+                    nextArrow.addEventListener("click", function () {
+                        slider.scrollBy({ left: cardWidth, behavior: "smooth" });
+                    });
+                }
+            }
+
+            setupSlider(petToysSection);
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const reviews = document.querySelectorAll(".review");
+            const prevArrow = document.querySelector(".navigation-arrows .arrow:first-child");
+            const nextArrow = document.querySelector(".navigation-arrows .arrow:last-child");
+
+            let currentReviewIndex = 0;
+            const reviewsToShow = 2; // Number of reviews to display at a time
+
+            function showReviews(index) {
+                reviews.forEach((review, i) => {
+                    review.style.display = (i >= index && i < index + reviewsToShow) ? "block" : "none";
+                });
+            }
+
+            // Initial Display (Show the first two reviews)
+            showReviews(currentReviewIndex);
+
+            // Previous Reviews
+            prevArrow.addEventListener("click", function () {
+                currentReviewIndex = (currentReviewIndex - reviewsToShow + reviews.length) % reviews.length;
+                showReviews(currentReviewIndex);
+            });
+
+            // Next Reviews
+            nextArrow.addEventListener("click", function () {
+                currentReviewIndex = (currentReviewIndex + reviewsToShow) % reviews.length;
+                showReviews(currentReviewIndex);
+            });
+        });
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById("cartModal");
+            var btns = document.querySelectorAll(".add-to-cart");
+            var closeBtn = document.querySelector(".close");
+
+            btns.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    modal.style.display = "block";
+                    document.body.classList.add("modal-open");
+                });
+            });
+
+            closeBtn.addEventListener("click", function () {
+                modal.style.display = "none";
+                document.body.classList.remove("modal-open");
+            });
+
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                    document.body.classList.remove("modal-open");
+                }
+            };
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,553 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 15px 20px;
+            position: relative;
+        }
+
+            .header img {
+                max-width: 300px;
+                height: 50px;
+            }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+            .icon-container i {
+                font-size: 24px;
+                color: #333;
+            }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 1000;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+             background-color: #f0f0f0;
+        }
+
+     /* Section Styling with Background Image 
+      /* Main Section */
+    .report-abuse-section {
+        display: flex;
+        align-items: flex-end; /* Align image to bottom */
+        justify-content: space-between;
+        padding: 120px 40px 0 40px; /* Top and side padding only */
+        background-color: #111;
+        color: white;
+        gap: 40px;
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    /* Content Side */
+    .report-content {
+        max-width: 500px;
+        text-align: left;
+    }
+
+    .report-content h1 {
+        font-size: 36px;
+        margin-top: 10px;
+        font-weight: 700;
+    }
+
+    .report-content p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .btn-report {
+        background-color: #EB5B00;
+        color: white;
+        padding: 10px 30px;
+        border-radius:5px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        display: inline-block;
+        margin-bottom: 50px;
+    }
+
+    .btn-report:hover {
+        background-color: #EB5B00;
+    }
+
+    /* Image Styling */
+    .report-image img {
+        max-width: 420px;
+        height: auto;
+        object-fit: contain;
+        margin-bottom: 1px; /* Make image touch bottom */
+        display: block;
+    }
+
+    /* Responsive Design */
+    media (max-width: 768px) {
+        .report-abuse-section {
+            flex-direction: column-reverse;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .report-image img {
+            max-width: 100%;
+            margin-bottom: 0;
+        }
+
+        .report-content h1 {
+            font-size: 28px;
+        }
+
+        .report-content {
+            margin-top: 20px;
+        }
+    }
+
+    /* theory portion */
+            body {
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #222;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-top: 50px;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            h3 {
+                font-size: 22px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+
+        .report-button {
+            background-color: #EB5B00;
+            color: black;
+            padding: 10px 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        /* commitment-container */
+        .commitment-container {
+            width: 90%;
+            margin: 0 auto;
+            background-color: #F1F0E9;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .commitment-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .commitment-content {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            border: 4px solid lightgray;
+        }
+
+        .commitment-text {
+            width: 50%;
+            background-color: #2e4a7d;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+            .commitment-text ul {
+                padding-left: 20px;
+                margin: 0;
+            }
+
+            .commitment-text li {
+                margin-bottom: 10px;
+            }
+
+        .commitment-image {
+            width: 50%;
+        }
+
+        .commitment-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        
+        /* form */
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #d7c2f2;
+            padding: 80px;
+            position: relative;
+            border: 4px solid lightgray;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .teg h1 {
+            text-align: center;
+            color: black;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: black;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #9370DB;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #7b5bb1;
+            }
+
+        /* Decorative dog images */
+        .dog-image-top {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            width: 100px;
+        }
+
+        .dog-image-bottom {
+            position: absolute;
+            bottom: -5px;
+            right: -3px;
+            width: 130px;
+        }
+
+        /* Responsive */
+        media (max-width: 768px) {
+            .form-container
+
+        {
+            padding: 20px;
+        }
+
+        .dog-image-top, .dog-image-bottom {
+            display: none;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <img src="~/image/resize.png" alt="Fur Angels Animal Shelter Logo">
+        <div class="icon-container" id="menu-icon">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="Home" asp-action="AboutUs">About us</a>
+            <a asp-controller="Home" asp-action="GroomingPage">Pet Grooming</a>
+            <a asp-controller="Home" asp-action="PetShop">Online Shop</a>
+            <a asp-controller="Home" asp-action="Consult">Vet consult</a>
+            <a href="#">Dog Training</a>
+            <a asp-controller="Home" asp-action="CartItem">Blog</a>
+            <a href="LoginPage.aspx">Login</a>
+
+        </div>
+    </div>
+
+    <!-- Report Animal Abuse Section -->
+    <div class="report-abuse-section">
+
+        <div class="report-content">
+            <h1>Report Abuse to Animals</h1>
+            <p>
+                Most reported animal abuse comes in the form of neglect, with direct violence occurring less.
+                Only you can make a difference.
+            </p>
+            <a href="/Home/ReportAbuse" class="btn-report">Report Animal Abuse</a>
+        </div>
+
+        <div class="report-image">
+            <img src="~/image/bg removel abuse bg.png" alt="Dog" />
+        </div>
+
+    </div>
+
+    <!-- theory portion -->
+    <div class="container">
+
+        <h1>Only you can make a difference.</h1>
+
+        <p>
+            Every state has laws prohibiting animal cruelty but a law is only as good as its enforcement and that's why animals rely on you to protect them by reporting animal abuse.
+            We never know where sudden mishap will strike or when animals may be in need of urgent rescue, but we know we must be prepared.
+            Your support makes this lifesaving work possible.
+        </p>
+
+        <h2>What is animal abuse?</h2>
+
+        <h3>Online Pet Sale & Buy</h3>
+        <p>
+            Online sale of pets in India is banned according to The Prevention of Cruelty to Animals Act 1960.
+            They elaborate on the various terms and conditions under which a person or organisation will be permitted to set up a pet shop and conduct the buying and selling of pet animals.
+            Some of these rules include registering the shop with the State Animal Welfare Board, ensuring comfortable and appropriate infrastructure for all the animals housed, veterinary care, and health of the animals, among other things.
+            Under no condition, buying and selling of pet animals is legal.
+        </p>
+        <p>
+            You can report to Animal Welfare Board of India or Ministry of Environment, Forest, and Climate Change.
+            In India, to report cruelty on animals/pets one needs to call on <strong>+91 98201 22602</strong>.
+            One can call the police or on the number of the local police station of the respected area where the cruelty happens.
+        </p>
+
+        <h3>Online Fraud</h3>
+        <p>
+            Most of the pets are being sold online illegally which leads to fraud.
+            They are bred in poor conditions and even sold without vaccination which is dangerous not only to the life of the pet but also to the person buying.
+            If you faced such a situation, don't be afraid to report the incident to Animal Welfare Board of India or Ministry of Environment, Forest, and Climate Change.
+            Your report can help prevent illegal trade of animals online.
+            You can report it if you are unsure of the rules.
+        </p>
+
+        <h3>Direct abuse</h3>
+        <p>
+            It can be very disturbing to see animal being beaten by someone, but it is important not to turn away. 
+            It is crucial to involve law enforcement quickly, as abuse toward animals is often part of a larger pattern of violence that can include people as well.
+            You can report to Animal Welfare Board of India or Ministry of Environment, Forest and Climate Change.
+        </p>
+
+        <h3>Reporting abuse</h3>
+        <p>
+            If you witness suspected abuse to animals, call your local animal control service as soon as possible or dial 100 if you are unfamiliar with local organizations.
+            The responding agency is required to investigate if you make a report of alleged animal cruelty.
+            If your area lacks the proper animal welfare service and your local authorities are not well equipped to deal with animal cruelty cases, you can also contact us. 
+            You can also contact Animal Welfare Board of India or Ministry of Environment, Forest and Climate Change.
+        </p>
+
+    </div>
+
+    <!-- Button to Report Animal Abuse -->
+    <div style="text-align: center; margin: 40px 0;">
+        <a href="" class="report-button"> Report Animal Abuse </a>
+    </div>
+
+
+    <!-- commitment-container -->
+    <div class="commitment-container">
+        <div class="commitment-title">Our Commitment</div>
+        <div class="commitment-content">
+            <div class="commitment-text">
+                <ul>
+                    <li>Report illegal Online Pet Trade</li>
+                    <li>Promote public awareness.</li>
+                    <li>Advise local authorities and assist in specific local cases.</li>
+                    <li>Direct intervention and rescue in animal cruelty cases.</li>
+                    <li>Advocate to strengthen animal protection laws.</li>
+                    <li>Collect information leading to an animal abuse or animal fighting conviction</li>
+                </ul>
+            </div>
+            <div class="commitment-image">
+                <img src="~/image/black abuse dog.jpg" alt="Dog Image">
+            </div>
+        </div>
+    </div>
+
+    <!-- form -->
+    <div class="form-container">
+        <div class="teg"><h1>Report An Incident</h1></div>
+
+        <form method="post">
+            <label>The issue I'm reporting involves:</label>
+            <input type="text" name="Issue" required />
+
+            <label>Your Name*(required)</label>
+            <input type="text" name="Name" required />
+
+            <label>Address of incident/animal</label>
+            <input type="text" name="Address" />
+
+            <label>City of incident/animal abuse*(required)</label>
+            <input type="text" name="City" required />
+
+            <label>State of incident/animal abuse*(required)</label>
+            <input type="text" name="State" required />
+
+            <label>Zip code of incident/animal abuse (optional)</label>
+            <input type="text" name="ZipCode" />
+
+            <label>
+                Please describe your concern in details, including the names and contact information of the individuals and agencies involved, dates and times, the exact location of the incident, and what has been done thus far:*(required)
+            </label>
+            <textarea name="Details" rows="5" required></textarea>
+
+            <label>Email*(required)</label>
+            <input type="email" name="Email" required />
+
+            <label>Contact Number*(required)</label>
+            <input type="tel" name="Contact" required />
+
+            <label>Date of Incident*(required)</label>
+            <input type="date" name="IncidentDate" required />
+
+            <button type="submit">Report Animal Abuse</button>
+        </form>
+
+        <!-- Images for dog decorations -->
+        <img src="~/image/form_decoration-removebg-preview.png" class="dog-image-top" alt="Dog Image 1" />
+        <img src="~/image/form_decoration_1-removebg-preview.png" class="dog-image-bottom" alt="Dog Image 2" />
+    </div>
+
+    <script>
+        // JavaScript to toggle dropdown menu
+        const menuIcon = document.getElementById("menu-icon");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+
+        menuIcon.addEventListener("click", function () {
+            if (dropdownMenu.style.display === "block") {
+                dropdownMenu.style.display = "none";
+            } else {
+                dropdownMenu.style.display = "block";
+            }
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function (event) {
+            if (!menuIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
