@@ -1,16 +1,33 @@
+// Program.cs
 using Microsoft.EntityFrameworkCore;
 using PetAdoption.Data;
 using PetAdoption.Models;
+using PetAdoption.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllersWithViews();
+
+// Register DbContext for Users and OtpRecords
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register DbContext for Admins
 builder.Services.AddDbContext<AdminDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AdminConnection")));
-builder.Services.AddSession();
+
+// Register EmailSettings and EmailService
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<EmailService>();
+
+// Add session support
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -44,7 +61,7 @@ using (var scope = app.Services.CreateScope())
         var admin = new Admin
         {
             Email = "mahekbabariya18@gmail.com",
-            Password = "mahek@123"
+            Password = "mahek@123" // In production, hash this
         };
         adminContext.Admins.Add(admin);
         adminContext.SaveChanges();

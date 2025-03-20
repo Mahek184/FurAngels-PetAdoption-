@@ -11,5 +11,6 @@ namespace PetAdoption.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<OtpRecord> OtpRecords { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Home\ForgotPassword.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.3">
@@ -15,5 +20,14 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.0" />
   </ItemGroup>
+
+ 
+	<ItemGroup>
+		<Content Include="Views\Home\ForgotPassword.cshtml" />
+	</ItemGroup>
+	<ItemGroup>
+	
+		<PackageReference Include="MimeKit" Version="4.11.0" />
+	</ItemGroup>
 
 </Project>

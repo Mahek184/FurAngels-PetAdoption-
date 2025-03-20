@@ -1,0 +1,258 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fur Angels - Animal Shelter</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Top Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #B17F59; /* Beige */
+            padding: 20px 30px;
+            color: #333;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+            .logo img {
+                height: 50px;
+                margin-top: -90px;
+            }
+
+        .user {
+            font-size: 18px;
+            padding: 20px;
+            margin-left: 1200px;
+            font-weight: bold;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #A5B68D; /* Green */
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 100px;
+        }
+
+            .sidebar a {
+                display: block;
+                padding: 15px 25px;
+                color: black;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+
+                .sidebar a:hover {
+                    background-color: #395693;
+                }
+
+            .sidebar .active {
+                font-weight: bold;
+                background-color: #99BC85; /* Green for active menu */
+            }
+
+        .dashboard-header {
+            background-color: #1E3A72; /* Dark Blue */
+            margin-top: 18px;
+            padding: 7px 25px;
+            color: #fff; /* White text for contrast */
+            font-size: 20px;
+        }
+
+            .dashboard-header a {
+                color: #fff; /* White text */
+                text-decoration: none;
+            }
+
+            .dashboard-header:hover {
+                background-color: #395693; /* Lighter blue on hover */
+            }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 40px;
+            background-color: #fff;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+
+        select, input[type="text"], input[type="file"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="file"] {
+            padding: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #1E3A72; /* Blue button */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            button:hover {
+                background-color: #395693;
+            }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="user">Mahek</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="~/image/resize.png" alt="Fur Angels Logo">
+        </div>
+        <h2 class="dashboard-header"><a asp-controller="Admin" asp-action="dashboard">Dashboard</a></h2>
+        <a href="#">Pet Abuse</a>
+        <a href="#">Pet Grooming</a>
+        <a href="#">Dog Training</a>
+        <a href="#">Vet Consult</a>
+        <a href="#" class="active">Shop</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Shop</h1>
+
+        <form id="shopForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+            <!-- Category Selection -->
+            <div class="form-group">
+                <label for="category">Category Name</label>
+                <select id="category" name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Pet Furniture">Pet Furniture</option>
+                    <option value="Pet Accessories">Pet Accessories</option>
+                    <option value="Pet Toys">Pet Toys</option>
+                </select>
+                <div class="error" id="categoryError"></div>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" id="image" name="image" accept="image/*" required />
+                <div class="error" id="imageError"></div>
+            </div>
+
+            <!-- Meta Title -->
+            <div class="form-group">
+                <label for="metaTitle">Meta Title</label>
+                <input type="text" id="metaTitle" name="metaTitle" placeholder="Enter meta title" required />
+                <div class="error" id="titleError"></div>
+            </div>
+
+            <!-- Meta Description -->
+            <div class="form-group">
+                <label for="metaDescription">Meta Description</label>
+                <textarea id="metaDescription" name="metaDescription" rows="4" placeholder="Enter meta description" required></textarea>
+                <div class="error" id="descError"></div>
+            </div>
+
+            <button type="submit">Submit</button>
+
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Reset error messages
+            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+
+            // Validate Category
+            const category = document.getElementById("category").value;
+            if (category === "") {
+                document.getElementById("categoryError").textContent = "Please select a category.";
+                isValid = false;
+            }
+
+            // Validate Image
+            const imageInput = document.getElementById("image");
+            const imageError = document.getElementById("imageError");
+
+            if (imageInput.files.length === 0) {
+                imageError.textContent = "Please upload an image.";
+                isValid = false;
+            } else {
+                const validExtensions = ["image/jpeg", "image/png", "image/gif"];
+                const fileType = imageInput.files[0].type;
+
+                if (!validExtensions.includes(fileType)) {
+                    imageError.textContent = "Only image files (JPEG, PNG, GIF) are allowed.";
+                    isValid = false;
+                }
+            }
+
+            // Validate Meta Title
+            const metaTitle = document.getElementById("metaTitle").value.trim();
+            if (metaTitle === "") {
+                document.getElementById("titleError").textContent = "Meta title is required.";
+                isValid = false;
+            }
+
+            // Validate Meta Description
+            const metaDescription = document.getElementById("metaDescription").value.trim();
+            if (metaDescription === "") {
+                document.getElementById("descError").textContent = "Meta description is required.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+
+</body>
+</html>

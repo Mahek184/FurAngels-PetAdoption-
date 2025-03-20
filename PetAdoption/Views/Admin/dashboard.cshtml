@@ -1,19 +1,106 @@
-﻿(function () {
-    'use strict';
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fur Angels - Animal Shelter</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-    angular
-        .module('app')
-        .controller('dashboard', dashboard);
+        /* Top Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #B17F59; /* Beige background */
+            padding: 20px 30px;
+            color: #333;
+        }
 
-    dashboard.$inject = ['$location'];
+        .logo {
+            display: flex;
+            align-items: center;
+        }
 
-    function dashboard($location) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.title = 'dashboard';
+            .logo img {
+                height: 50px;
+                margin-top:-90px;
+            }
 
-        activate();
+        .user {
+            font-size: 18px;
+            padding:20px;
+            margin-left: 1200px;
+        }
 
-        function activate() { }
-    }
-})();
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #A5B68D; /* Dark Blue */
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 100px;
+        }
+
+            .sidebar a {
+                display: block;
+                padding: 15px 25px;
+                color: black;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+
+                .sidebar a:hover {
+                    background-color: #395693;
+                }
+
+            .sidebar .active {
+                font-weight: bold;
+                background-color: #324A7A;
+            }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="user">Mahek</div>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="~/image/resize.png" alt="Fur Angels Logo">   <!-- ✅ Fixed path -->
+        </div>
+        <h2><a href="#" class="active">Dashboard</a></h2>
+        <a href="#">Pet Abuse</a>
+        <a href="#">Pet Grooming</a>
+        <a href="#">Dog Training</a>
+        <a href="#">Vet Consult</a>
+        <a asp-controller="Admin" asp-action="Addshop">Shop</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Control Panel</h1>
+    </div>
+
+</body>
+</html>

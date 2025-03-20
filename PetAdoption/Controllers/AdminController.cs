@@ -19,6 +19,16 @@ namespace PetAdoption.Controllers
             return View();
         }
 
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+        public IActionResult Addshop()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AdminLogin(string email, string password)
