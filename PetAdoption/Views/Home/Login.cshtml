@@ -123,7 +123,6 @@
         .custom-signup-text a:hover {
             color: #7f5af0;
         }
-        /* Fixed media query syntax */
         media only screen and (max-width: 600px) {
             .custom-login-card {
                 padding: 30px 20px;
@@ -169,6 +168,9 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required />
                 </div>
+                <input type="hidden" name="productName" value="@ViewBag.ProductName" />
+                <input type="hidden" name="productPrice" value="@ViewBag.ProductPrice" />
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
                 <button type="submit" class="custom-login-btn">LOGIN</button>
             </form>
 
@@ -176,7 +178,6 @@
                 Don't have an account? <a asp-controller="Home" asp-action="Signup">Sign Up</a>
                 <br />Forgot Password? <a asp-controller="Home" asp-action="ForgotPassword">Forgot Password</a>
             </p>
-            
         </div>
     </div>
 

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PetAdoption.Models.DogTrainingBooking
+@{
     Layout = null;
 }
 
@@ -7,7 +8,6 @@
 <head>
     <title>Professional Dog Training Service</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
     <style>
         body {
             margin: 0;
@@ -300,269 +300,287 @@
         }
 
         /* Main Section */
-.booking-section {
-    text-align: center;
-    padding: 40px 20px;
-    max-width: 1400px;
-    margin: 60px auto;
-    background: #E4EFE7;
-    margin-top: -70px;
-}
+        .booking-section {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 60px auto;
+            background: #E4EFE7;
+            margin-top: -70px;
+        }
 
-/* Section Title */
-.section-title {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 40px;
-    color: #000;
-}
+        /* Section Title */
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #000;
+        }
 
-/* Container holding the cards */
-.steps-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: nowrap; /* Prevents wrapping to next row */
-}
+        /* Container holding the cards */
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: nowrap; /* Prevents wrapping to next row */
+        }
 
-/* Individual Card */
-.step-box {
-    background-color: #F4F4F4;
-    border-radius: 15px;
-    padding: 20px;
-    width: 33%; /* Exactly 3 cards in one row */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    text-align: center;
-}
+        /* Individual Card */
+        .step-box {
+            background-color: #F4F4F4;
+            border-radius: 15px;
+            padding: 20px;
+            width: 33%; /* Exactly 3 cards in one row */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
 
-.step-box:hover {
-    transform: translateY(-5px);
-}
+        .step-box:hover {
+            transform: translateY(-5px);
+        }
 
-/* Icon Styling */
-.step-icon {
-    font-size: 40px;
-    color: #000;
-    margin-bottom: 15px;
-}
+        /* Icon Styling */
+        .step-icon {
+            font-size: 40px;
+            color: #000;
+            margin-bottom: 15px;
+        }
 
-/* Title inside card */
-.step-box h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #333;
-}
+        /* Title inside card */
+        .step-box h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
 
-/* Description */
-.step-box p {
-    font-size: 16px;
-    color: #555;
-    line-height: 1.6;
-}
+        /* Description */
+        .step-box p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
 
-/* Small screens (mobile) adjustment */
-media (max-width: 768px) {
-    .steps-container {
-        flex-wrap: wrap; /* Allow wrapping on small screens */
-    }
+        /* Small screens (mobile) adjustment */
+        media (max-width: 768px) {
+            .steps-container {
+                flex-wrap: wrap; /* Allow wrapping on small screens */
+            }
 
-    .step-box {
-        width: 100%; /* Full width card on small screens */
-        margin-bottom: 20px;
-    }
-}
+            .step-box {
+                width: 100%; /* Full width card on small screens */
+                margin-bottom: 20px;
+            }
+        }
         
         /* Main Section */
-.training-section {
-    text-align: center;
-    padding: 40px 20px;
-    max-width: 1300px;
-    margin: 0 auto;
-}
+        .training-section {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
 
-/* Title & Subtitle */
-.main-title {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+        /* Title & Subtitle */
+        .main-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-.subtitle {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 30px;
-}
+        .subtitle {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
 
-/* Photo Card Container */
-.photo-card-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    flex-wrap: nowrap; /* No wrap to ensure 1 row */
-    overflow-x: auto; /* Scroll if screen is smaller */
-    padding-bottom: 10px;
-}
+        /* Photo Card Container */
+        .photo-card-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: nowrap; /* No wrap to ensure 1 row */
+            overflow-x: auto; /* Scroll if screen is smaller */
+            padding-bottom: 10px;
+        }
 
-/* Individual Photo Card */
-.photo-card {
-    width: 24%; /* Ensures 4 cards in one row */
-    min-width: 280px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
+        /* Individual Photo Card */
+        .photo-card {
+            width: 24%; /* Ensures 4 cards in one row */
+            min-width: 280px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
 
-.photo-card:hover {
-    transform: translateY(-5px);
-}
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
 
-/* Image Styling */
-.photo-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
+        /* Image Styling */
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-/* Text Content Under Image */
-.card-content {
-    padding: 15px;
-    color: black;
-    min-height: 230px;
-}
+        /* Text Content Under Image */
+        .card-content {
+            padding: 15px;
+            color: black;
+            min-height: 230px;
+        }
 
-/* Background Colors */
-.green-bg {
-    background-color: #A2C579;
-}
+        /* Background Colors */
+        .green-bg {
+            background-color: #A2C579;
+        }
 
-.teal-bg {
-    background-color: #6DB9EF;
-}
+        .teal-bg {
+            background-color: #6DB9EF;
+        }
 
-.orange-bg {
-    background-color: #F4A259;
-}
+        .orange-bg {
+            background-color: #F4A259;
+        }
 
-.pink-bg {
-    background-color: #D988B9;
-}
+        .pink-bg {
+            background-color: #D988B9;
+        }
 
-/* Card Titles */
-.card-content h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
+        /* Card Titles */
+        .card-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
 
-/* Card Paragraph */
-.card-content p {
-    font-size: 14px;
-    line-height: 1.6;
-}
+        /* Card Paragraph */
+        .card-content p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
 
-/* Responsive Design */
-media (max-width: 992px) {
-    .photo-card {
-        width: 48%; /* 2 in row on medium screens */
-    }
-}
+        /* Responsive Design */
+        media (max-width: 992px) {
+            .photo-card {
+                width: 48%; /* 2 in row on medium screens */
+            }
+        }
 
-media (max-width: 600px) {
-    .photo-card {
-        width: 100%; /* Full width on small screens */
-    }
-}
+        media (max-width: 600px) {
+            .photo-card {
+                width: 100%; /* Full width on small screens */
+            }
+        }
 
         /* Dog-Friendly Training */
-       
-.dog-training-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px;
-    padding: 40px 20px;
-    max-width: 1300px;
-    margin: 0 auto;
-    flex-wrap: wrap; /* Responsive wrapping */
-}
+        .dog-training-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            padding: 40px 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+            flex-wrap: wrap; /* Responsive wrapping */
+        }
 
-/* Left Column */
-.content-column {
-    flex: 1;
-    min-width: 320px;
-    max-width: 700px;
-}
+        /* Left Column */
+        .content-column {
+            flex: 1;
+            min-width: 320px;
+            max-width: 700px;
+        }
 
-/* Right Column */
-.image-column {
-    flex: 1;
-    min-width: 280px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        /* Right Column */
+        .image-column {
+            flex: 1;
+            min-width: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-/* Image Styling */
-.image-column img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 12px;
-}
+        /* Image Styling */
+        .image-column img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 12px;
+        }
 
-/* Titles */
-.content-column h2 {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 16px;
-}
+        /* Titles */
+        .content-column h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
 
-.content-column h3 {
-    font-size: 24px;
-    margin-top: 20px;
-    margin-bottom: 12px;
-}
+        .content-column h3 {
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
 
-/* Paragraph */
-.content-column p {
-    font-size: 16px;
-    line-height: 1.7;
-    margin-bottom: 20px;
-    color: #333;
-}
+        /* Paragraph */
+        .content-column p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #333;
+        }
 
-/* List Styling */
-.content-column ul {
-    padding-left: 20px;
-}
+        /* List Styling */
+        .content-column ul {
+            padding-left: 20px;
+        }
 
-.content-column ul li {
-    margin-bottom: 15px;
-    font-size: 16px;
-    line-height: 1.7;
-    color: #333;
-}
+        .content-column ul li {
+            margin-bottom: 15px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333;
+        }
 
-/* Bold Titles in List */
-.content-column ul li strong {
-    color: #000;
-}
+        /* Bold Titles in List */
+        .content-column ul li strong {
+            color: #000;
+        }
 
-/* Responsive Design */
-media (max-width: 992px) {
-    .dog-training-section {
-        flex-direction: column;
-        text-align: center;
-    }
+        /* Responsive Design */
+        media (max-width: 992px) {
+            .dog-training-section {
+                flex-direction: column;
+                text-align: center;
+            }
 
-    .image-column {
-        margin-top: 20px;
-    }
-}
+            .image-column {
+                margin-top: 20px;
+            }
+        }
 
+        /* Success/Error Messages */
+        .alert {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            text-align: center;
+        }
 
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
@@ -599,29 +617,56 @@ media (max-width: 992px) {
         </div>
 
         <div class="white-box">
-            <div class="checkbox-group">
-                <label><input type="checkbox"> <div><strong>Puppy Training</strong><br>For young puppies (1~6 months) to develop basic obedience and socialization skills.</div></label>
-                <label><input type="checkbox"> <div><strong>Basic Obedience Training</strong><br>For dogs (6 months and older) to learn essential commands and manners.</div></label>
-                <label><input type="checkbox"> <div><strong>Behavior Correction Training</strong><br>For dogs with problematic behaviors that require modification.</div></label>
-            </div>
-
-            <div class="form-group">
-                <div class="input-wrapper">
-                    <label for="location">Your Location</label>
-                    <input type="text" id="location" placeholder="Select Your Location">
-                    <i class="fa-solid fa-location-dot"></i>
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["Success"]
                 </div>
-                <div class="input-wrapper">
-                    <label for="breed">Your Dog's Breed</label>
-                    <input type="text" id="breed" placeholder="Select Breed Here">
-                    <i class="fa-solid fa-dog"></i>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["Error"]
                 </div>
-            </div>
+            }
 
-            <button class="btn">Book Your Training</button>
+            <form asp-action="SubmitDogTrainingBooking" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" asp-for="PuppyTraining">
+                        <div><strong>Puppy Training</strong><br>For young puppies (1~6 months) to develop basic obedience and socialization skills.</div>
+                    </label>
+                    <label>
+                        <input type="checkbox" asp-for="BasicObedienceTraining">
+                        <div><strong>Basic Obedience Training</strong><br>For dogs (6 months and older) to learn essential commands and manners.</div>
+                    </label>
+                    <label>
+                        <input type="checkbox" asp-for="BehaviorCorrectionTraining">
+                        <div><strong>Behavior Correction Training</strong><br>For dogs with problematic behaviors that require modification.</div>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <label asp-for="Location">Your Location</label>
+                        <input asp-for="Location" placeholder="Select Your Location" required />
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                    <div class="input-wrapper">
+                        <label asp-for="DogBreed">Your Dog's Breed</label>
+                        <input asp-for="DogBreed" placeholder="Select Breed Here" required />
+                        <i class="fa-solid fa-dog"></i>
+                        <span asp-validation-for="DogBreed" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Book Your Training</button>
+            </form>
         </div>
     </div>
-
 
     <!-- pet nest protect -->
     <div class="card-container">
@@ -639,7 +684,7 @@ media (max-width: 992px) {
 
                 <p>24/7 support from the ThePetNest team—here to help if you ever need someone to talk to in between your dog training sessions.</p>
 
-                <button class="training-btn" onclick="location.href='@Url.Action("BookTraining", "Training")'">Book Your Training</button>
+                <button class="training-btn" onclick="location.href='@Url.Action("DogTraining", "Home")'">Book Your Training</button>
             </div>
 
             <div class="right-section">
@@ -647,7 +692,6 @@ media (max-width: 992px) {
             </div>
         </div>
     </div>
-
 
     <!-- booking-section -->
     <div class="booking-section">
@@ -675,7 +719,6 @@ media (max-width: 992px) {
             </div>
         </div>
     </div>
-
 
     <!-- training-section -->
     <div class="training-section">
@@ -721,7 +764,6 @@ media (max-width: 992px) {
         </div>
     </div>
 
-
     <!-- Dog-Friendly Training -->
     <div class="dog-training-section">
         <div class="content-column">
@@ -747,10 +789,29 @@ media (max-width: 992px) {
         </div>
     </div>
 
-
-
-    <!-- Dropdown Menu Script -->
+    <!-- Client-side validation scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
     <script>
+        $(document).ready(function () {
+            $("form").validate({
+                rules: {
+                    Location: { required: true },
+                    DogBreed: { required: true }
+                },
+                messages: {
+                    Location: "Please enter your location.",
+                    DogBreed: "Please enter your dog's breed."
+                },
+                errorElement: "span",
+                errorClass: "text-danger",
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element);
+                }
+            });
+        });
+
         const menuIcon = document.getElementById("menu-icon");
         const dropdownMenu = document.getElementById("dropdown-menu");
 
@@ -764,6 +825,5 @@ media (max-width: 992px) {
             }
         });
     </script>
-
 </body>
 </html>

@@ -1,0 +1,435 @@
+﻿@model List<PetAdoption.Models.CartItem>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart - Fur Angels</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header img {
+            max-width: 300px;
+            height: 50px;
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .cart-icon {
+            font-size: 28px;
+            color: #000;
+            transition: color 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            color: #D86F1D;
+        }
+
+        /* Cart Container */
+        .cart-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #1f3a52;
+            text-align: left;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Cart Items */
+        .cart-items {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-top: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .item-details {
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .item-details h4 {
+            font-size: 16px;
+            color: #333;
+            margin: 0 0 5px;
+        }
+
+        .item-details p {
+            font-size: 16px;
+            color: #D86F1D;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* Quantity Controls */
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-controls button {
+            background-color: #ddd;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 3px;
+        }
+
+        .quantity-controls button:hover {
+            background-color: #ccc;
+        }
+
+        .quantity-controls span {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Delete Icon */
+        .delete-item {
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .delete-item:hover {
+            color: #D86F1D;
+        }
+
+        /* Total Section */
+        .total-section {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .total-section p {
+            font-size: 16px;
+            color: #333;
+            margin: 5px 0;
+        }
+
+        .total-section .estimated-total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #D86F1D;
+        }
+
+        .total-section .tax-info {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Check Out Button */
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            background-color: #D86F1D;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background-color: #C45E1A;
+        }
+
+        /* Empty Cart Message */
+        .empty-cart {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin: 20px 0;
+        }
+
+        /* Continue Shopping Link */
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #D86F1D;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .continue-shopping:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        media (max-width: 768px) {
+            .cart-container {
+                margin: 20px;
+                padding: 15px;
+            }
+
+            .cart-item img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .item-details h4 {
+                font-size: 14px;
+            }
+
+            .item-details p {
+                font-size: 14px;
+            }
+
+            .quantity-controls button {
+                padding: 3px 8px;
+                font-size: 14px;
+            }
+
+            .quantity-controls span {
+                font-size: 14px;
+            }
+
+            .total-section p {
+                font-size: 14px;
+            }
+
+            .total-section .estimated-total {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    <!-- Test Image -->
+    <div style="text-align: center; margin: 20px;">
+        <h3>Test Image</h3>
+        <img src="/image/default.jpg" alt="Test Image" style="width: 100px; height: 100px;">
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <img src="/image/resize.png" alt="Fur Angels Animal Shelter Logo" />
+        <div class="icon-container">
+            <a href="/Home/CartItem"><i class="fa fa-shopping-cart cart-icon"></i></a>
+            @if (!string.IsNullOrEmpty(Context.Session.GetString("UserEmail")))
+            {
+                <a href="/Home/Logout">Logout</a>
+            }
+            else
+            {
+                <a href="/Home/Login">Login</a>
+            }
+        </div>
+    </div>
+
+    <!-- Cart Content -->
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+        @if (Model.Any())
+        {
+            <div class="cart-items">
+                @foreach (var item in Model)
+                {
+                    <div class="cart-item" data-id="@item.Id">
+                        <p>Debug Image URL: @item.ImageUrl</p>
+                        <img src="@item.ImageUrl" alt="@item.ProductName" onerror="this.src='/image/default.jpg'">
+                        <div class="item-details">
+                            <h4>@item.ProductName</h4>
+                            <p>@item.ProductPrice</p>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="decrease">-</button>
+                            <span class="quantity">@item.Quantity</span>
+                            <button class="increase">+</button>
+                        </div>
+                        <i class="fas fa-trash delete-item"></i>
+                    </div>
+                }
+            </div>
+            <div class="total-section">
+                <p class="estimated-total">Estimated Total: <span id="total-price">@CalculateTotal(Model)</span></p>
+                <p class="tax-info">Taxes, discounts, and shipping calculated at checkout.</p>
+                <a href="#" class="checkout-btn">Check Out</a>
+            </div>
+        }
+        else
+        {
+            <p class="empty-cart">Your cart is empty.</p>
+        }
+        <a href="/Home/PetShop" class="continue-shopping">Continue Shopping</a>
+    </div>
+
+    <script>
+        // Calculate total on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            const cartItems = document.querySelectorAll(".cart-item");
+
+            cartItems.forEach(item => {
+                const id = item.getAttribute("data-id");
+                const decreaseBtn = item.querySelector(".decrease");
+                const increaseBtn = item.querySelector(".increase");
+                const quantitySpan = item.querySelector(".quantity");
+                const deleteBtn = item.querySelector(".delete-item");
+
+                // Decrease quantity
+                decreaseBtn.addEventListener("click", function () {
+                    let quantity = parseInt(quantitySpan.textContent);
+                    if (quantity > 1) {
+                        quantity--;
+                        updateQuantity(id, quantity);
+                    }
+                });
+
+                // Increase quantity
+                increaseBtn.addEventListener("click", function () {
+                    let quantity = parseInt(quantitySpan.textContent);
+                    quantity++;
+                    updateQuantity(id, quantity);
+                });
+
+                // Delete item
+                deleteBtn.addEventListener("click", function () {
+                    deleteItem(id);
+                });
+            });
+        });
+
+        function updateQuantity(id, quantity) {
+            fetch('/Home/UpdateQuantity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify({ id: id, quantity: quantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (quantity <= 0) {
+                        document.querySelector(`.cart-item[data-id="${id}"]`).remove();
+                    } else {
+                        document.querySelector(`.cart-item[data-id="${id}"] .quantity`).textContent = quantity;
+                    }
+                    updateTotal();
+                } else if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    alert("Failed to update quantity: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while updating quantity.");
+            });
+        }
+
+        function deleteItem(id) {
+            fetch('/Home/DeleteItem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify({ id: id })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector(`.cart-item[data-id="${id}"]`).remove();
+                    updateTotal();
+                } else if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    alert("Failed to delete item: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while deleting the item.");
+            });
+        }
+
+        function updateTotal() {
+            const items = document.querySelectorAll(".cart-item");
+            let total = 0;
+            items.forEach(item => {
+                const price = parseFloat(item.querySelector(".item-details p").textContent.replace("₹", "").replace(",", ""));
+                const quantity = parseInt(item.querySelector(".quantity").textContent);
+                total += price * quantity;
+            });
+            document.getElementById("total-price").textContent = "₹" + total.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            if (items.length === 0) {
+                window.location.reload(); // Reload to show "Your cart is empty"
+            }
+        }
+    </script>
+</body>
+</html>
+
+@functions {
+    public string CalculateTotal(List<PetAdoption.Models.CartItem> items)
+    {
+        decimal total = 0;
+        foreach (var item in items)
+        {
+            if (!string.IsNullOrEmpty(item.ProductPrice))
+            {
+                string priceStr = item.ProductPrice.Replace("₹", "").Replace(",", "").Trim();
+                if (decimal.TryParse(priceStr, out decimal price))
+                {
+                    total += price * item.Quantity;
+                }
+            }
+        }
+        return "₹" + total.ToString("N2", new System.Globalization.CultureInfo("en-IN"));
+    }
+}
