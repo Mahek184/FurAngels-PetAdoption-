@@ -1,0 +1,381 @@
+﻿@model PetAdoption.Models.PaymentRequest
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Fur Angels Payment</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 15px 20px;
+            position: relative;
+        }
+
+            .header img {
+                max-width: 300px;
+                height: 50px;
+            }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+            .icon-container i {
+                font-size: 24px;
+                color: #333;
+            }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 1000;
+        }
+
+            .dropdown-menu a {
+                display: block;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+
+                .dropdown-menu a:hover {
+                    background-color: #f0f0f0;
+                }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .user-circle {
+            width: 40px;
+            height: 40px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 200px;
+        }
+
+            .user-dropdown a {
+                display: block;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+
+                .user-dropdown a:hover {
+                    background-color: #f0f0f0;
+                }
+
+        .custom-login-container {
+            background: url('/image/adorable-golden-retriever-outdoors.jpg') no-repeat center center;
+            background-size: cover;
+            height: calc(170vh - 80px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-overlay {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 700px;
+            z-index: 3;
+            margin-top: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .name-group, .city-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+            .name-group input, .city-group input {
+                width: 32%;
+            }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+            .payment-option input {
+                margin: 0;
+                width: 18px;
+                height: 18px;
+            }
+
+            .payment-option label {
+                margin: 0;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+        .btn-pay {
+            background-color: #f90;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+            .btn-pay:hover {
+                background-color: #e68a00;
+            }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="~/image/resize.png" alt="Fur Angels Animal Shelter Logo">
+        <div class="icon-container" id="menu-icon">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu">
+            <a asp-controller="Home" asp-action="AboutUs">About us</a>
+            <a asp-controller="Home" asp-action="GroomingPage">Pet Grooming</a>
+            <a asp-controller="Home" asp-action="PetShop">Online Shop</a>
+            <a asp-controller="Home" asp-action="Consult">Vet consult</a>
+            <a asp-controller="Home" asp-action="PetAbuse">Report Animal Abuse</a>
+            <a asp-controller="Home" asp-action="DogTraining">Dog Training</a>
+        </div>
+        <div class="user-profile">
+            <div class="user-circle" id="user-circle">
+                @(ViewBag.UserFullName != null ? ViewBag.UserFullName.Substring(0, 1).ToUpper() : "U")
+            </div>
+            <div class="user-dropdown" id="user-dropdown">
+                <a href="#"><i class="fa-solid fa-user"></i> My Profile</a>
+                <a href="#"><i class="fa-solid fa-shopping-cart"></i> View Cart</a>
+                <a asp-controller="Home" asp-action="Logout"><i class="fa-solid fa-sign-out-alt"></i> Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-login-container">
+        <div class="form-overlay">
+            <h2>Contact</h2>
+            <input type="text" placeholder="Email or mobile phone number" id="email" />
+
+            <h2>Delivery</h2>
+            <input type="text" placeholder="Country" id="country" />
+            <div class="name-group">
+                <input type="text" placeholder="First name" id="firstName" />
+                <input type="text" placeholder="Last name" id="lastName" />
+            </div>
+            <input type="text" placeholder="Address" id="address" />
+            <div class="city-group">
+                <input type="text" placeholder="City" id="city" />
+                <input type="text" placeholder="State" id="state" />
+                <input type="text" placeholder="Pin Code" id="pinCode" />
+            </div>
+            <input type="text" placeholder="Phone number" id="phone" />
+
+            <h2>Payment</h2>
+            <div class="payment-option">
+                <input type="radio" name="payment" id="credit-card" value="credit-card" />
+                <label for="credit-card">Credit card</label>
+            </div>
+            <input type="text" placeholder="Card number" id="cardNumber" />
+            <div class="name-group">
+                <input type="text" placeholder="Expiration date (MM/YY)" id="expiry" />
+                <input type="text" placeholder="Security code" id="cvv" />
+            </div>
+            <input type="text" placeholder="Name on card" id="cardName" />
+
+            <div class="payment-option">
+                <input type="radio" name="payment" id="paytm" value="paytm" />
+                <label for="paytm">Paytm Payment Gateway</label>
+            </div>
+
+            <button class="btn-pay" id="payNowBtn">Pay Now</button>
+        </div>
+    </div>
+
+    <script>
+        const menuIcon = document.getElementById("menu-icon");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+        const userCircle = document.getElementById("user-circle");
+        const userDropdown = document.getElementById("user-dropdown");
+
+        menuIcon.addEventListener("click", () => {
+            dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!menuIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+
+        userCircle.addEventListener("click", () => {
+            userDropdown.style.display = (userDropdown.style.display === "block") ? "none" : "block";
+        });
+
+        document.addEventListener("click", (event) => {
+            if (!userCircle.contains(event.target) && !userDropdown.contains(event.target)) {
+                userDropdown.style.display = "none";
+            }
+        });
+
+        document.getElementById('payNowBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const paymentData = {
+                email: document.getElementById("email").value,
+                country: document.getElementById("country").value,
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+                address: document.getElementById("address").value,
+                city: document.getElementById("city").value,
+                state: document.getElementById("state").value,
+                pinCode: document.getElementById("pinCode").value,
+                phone: document.getElementById("phone").value,
+                paymentMethod: document.querySelector('input[name="payment"]:checked')?.value,
+                cardNumber: document.getElementById("cardNumber").value,
+                expiry: document.getElementById("expiry").value,
+                cvv: document.getElementById("cvv").value,
+                cardName: document.getElementById("cardName").value
+            };
+
+            fetch('/Home/InitiatePayment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': '@Html.AntiForgeryToken()'.match(/value="(.+)"/)[1]
+                },
+                body: JSON.stringify(paymentData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        var options = {
+                            "key": data.key,
+                            "amount": data.amount,
+                            "currency": "INR",
+                            "name": "Fur Angels",
+                            "description": "Payment for Pet Services",
+                            "order_id": data.orderId,
+                            "handler": function (response) {
+                                fetch('/Home/VerifyPayment', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'RequestVerificationToken': '@Html.AntiForgeryToken()'.match(/value="(.+)"/)[1]
+                                    },
+                                    body: JSON.stringify({
+                                        razorpay_payment_id: response.razorpay_payment_id,
+                                        razorpay_order_id: response.razorpay_order_id,
+                                        razorpay_signature: response.razorpay_signature
+                                    })
+                                })
+                                    .then(res => res.json())
+                                    .then(result => {
+                                        if (result.success) {
+                                            alert('Payment successful!');
+                                            window.location.href = '/Home/Afterlogin';
+                                        } else {
+                                            alert('Payment verification failed: ' + result.message);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Verification error:', error);
+                                        alert('Error verifying payment');
+                                    });
+                            },
+                            "prefill": {
+                                "name": `${paymentData.firstName || ''} ${paymentData.lastName || ''}`,
+                                "email": paymentData.email || '',
+                                "contact": paymentData.phone || ''
+                            },
+                            "theme": {
+                                "color": "#f90"
+                            }
+                        };
+                        var rzp = new Razorpay(options);
+                        rzp.open();
+                    } else {
+                        alert('Failed to initiate payment: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while processing payment: ' + error.message);
+                });
+        });
+    </script>
+</body>
+</html>

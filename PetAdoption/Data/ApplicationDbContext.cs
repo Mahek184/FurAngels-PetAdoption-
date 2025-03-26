@@ -15,5 +15,6 @@ namespace PetAdoption.Data
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<VetConsultation> VetConsultations { get; set; }
         public DbSet<DogTrainingBooking> DogTrainingBookings { get; set; }
+        public DbSet<PaymentRecord> PaymentRecords { get; set; }
     }
 }

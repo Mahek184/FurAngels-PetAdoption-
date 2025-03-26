@@ -297,7 +297,7 @@
             <div class="total-section">
                 <p class="estimated-total">Estimated Total: <span id="total-price">@CalculateTotal(Model)</span></p>
                 <p class="tax-info">Taxes, discounts, and shipping calculated at checkout.</p>
-                <a href="#" class="checkout-btn">Check Out</a>
+                <a asp-controller="Home" asp-action="Payment" class="checkout-btn">Check Out</a>
             </div>
         }
         else

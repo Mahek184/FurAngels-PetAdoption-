@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PetAdoption.Data;
 using PetAdoption.Models;
 using PetAdoption.Services;
+using Razorpay.Api;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +16,15 @@ namespace PetAdoption.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly EmailService _emailService;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, EmailService emailService)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context,
+            EmailService emailService, IConfiguration configuration)
         {
             _logger = logger;
             _context = context;
             _emailService = emailService;
+            _configuration = configuration;
         }
 
         public IActionResult Index() => View();
@@ -34,15 +39,14 @@ namespace PetAdoption.Controllers
         public IActionResult DogTraining() => View();
         public IActionResult Afterlogin() => View();
         public IActionResult Adminlogin() => View();
+        public IActionResult Payment() => View();
 
-        // GET: /Home/ForgotPassword
         [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();
         }
 
-        // POST: /Home/ForgotPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(string? email)
@@ -55,7 +59,7 @@ namespace PetAdoption.Controllers
 
             _logger.LogInformation("Searching for email: {Email}", email);
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email.Trim().ToLower() == email.Trim().ToLower());
+                .FirstOrDefaultAsync(u => u.Email != null && u.Email.Trim().ToLower() == email.Trim().ToLower());
 
             if (user == null)
             {
@@ -95,7 +99,6 @@ namespace PetAdoption.Controllers
             return RedirectToAction("VerifyOtp", new { email });
         }
 
-        // GET: /Home/VerifyOtp
         [HttpGet]
         public IActionResult VerifyOtp(string? email)
         {
@@ -107,7 +110,6 @@ namespace PetAdoption.Controllers
             return View();
         }
 
-        // POST: /Home/VerifyOtp
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> VerifyOtp(string? email, string? otp)
@@ -125,7 +127,8 @@ namespace PetAdoption.Controllers
             }
 
             var otpRecord = await _context.OtpRecords
-                .FirstOrDefaultAsync(o => o.Email == email && o.Otp == otp && !o.IsUsed && o.CreatedAt > DateTime.UtcNow.AddMinutes(-10));
+                .FirstOrDefaultAsync(o => o.Email == email && o.Otp == otp && !o.IsUsed &&
+                    o.CreatedAt > DateTime.UtcNow.AddMinutes(-10));
 
             if (otpRecord == null)
             {
@@ -142,7 +145,6 @@ namespace PetAdoption.Controllers
             return RedirectToAction("ResetPassword", new { email });
         }
 
-        // GET: /Home/ResetPassword
         [HttpGet]
         public IActionResult ResetPassword(string? email)
         {
@@ -154,7 +156,6 @@ namespace PetAdoption.Controllers
             return View();
         }
 
-        // POST: /Home/ResetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(string? email, string? newPassword, string? confirmPassword)
@@ -197,7 +198,6 @@ namespace PetAdoption.Controllers
             return RedirectToAction("Login");
         }
 
-        // GET: /Home/Login
         [HttpGet]
         public IActionResult Login(string? productName = null, string? productPrice = null, string? returnUrl = null)
         {
@@ -211,10 +211,10 @@ namespace PetAdoption.Controllers
             return View();
         }
 
-        // POST: /Home/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string? email, string? password, string? productName = null, string? productPrice = null, string? returnUrl = null)
+        public async Task<IActionResult> Login(string? email, string? password, string? productName = null,
+            string? productPrice = null, string? returnUrl = null)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
@@ -228,10 +228,9 @@ namespace PetAdoption.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user != null && VerifyPassword(password, user.PasswordHash))
             {
-                HttpContext.Session.SetString("UserEmail", user.Email);
+                HttpContext.Session.SetString("UserEmail", user.Email ?? string.Empty);
                 _logger.LogInformation("User logged in: {Email}", email);
 
-                // If product details are provided, add to cart
                 if (!string.IsNullOrEmpty(productName) && !string.IsNullOrEmpty(productPrice))
                 {
                     var imageMap = new Dictionary<string, string>
@@ -284,14 +283,12 @@ namespace PetAdoption.Controllers
             return View();
         }
 
-        // GET: /Home/Signup
         [HttpGet]
         public IActionResult Signup()
         {
             return View();
         }
 
-        // POST: /Home/Signup
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Signup(string? fullName, string? email, string? mobile, string? password, string? confirmPassword)
@@ -331,7 +328,6 @@ namespace PetAdoption.Controllers
             return RedirectToAction("Login");
         }
 
-        // Logout
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -339,7 +335,6 @@ namespace PetAdoption.Controllers
             return RedirectToAction("Login");
         }
 
-        // Check Login Status
         [HttpGet]
         public IActionResult CheckLoginStatus()
         {
@@ -347,7 +342,6 @@ namespace PetAdoption.Controllers
             return Json(new { isLoggedIn });
         }
 
-        // Add to Cart
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddToCart([FromBody] CartItemDto? cartItemDto)
@@ -404,7 +398,6 @@ namespace PetAdoption.Controllers
             return Json(new { success = true, message = "Item added to cart" });
         }
 
-        // View Cart
         [HttpGet]
         public async Task<IActionResult> CartItem()
         {
@@ -420,7 +413,6 @@ namespace PetAdoption.Controllers
             return View(cartItems);
         }
 
-        // Update Quantity
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateQuantity(int id, int quantity)
@@ -451,7 +443,6 @@ namespace PetAdoption.Controllers
             return Json(new { success = true, message = "Quantity updated" });
         }
 
-        // Delete Item
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteItem(int id)
@@ -474,7 +465,6 @@ namespace PetAdoption.Controllers
             return Json(new { success = true, message = "Item removed" });
         }
 
-        // Submit Vet Consultation
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitVetConsultation(VetConsultation model)
@@ -506,7 +496,7 @@ namespace PetAdoption.Controllers
 
             try
             {
-                await _emailService.SendEmailAsync(model.OwnerEmail, subject, body);
+                await _emailService.SendEmailAsync(model.OwnerEmail ?? string.Empty, subject, body);
                 await _emailService.SendEmailAsync("mahekbabariya18@gmail.com", subject, body);
                 _logger.LogInformation("Vet consultation email sent to {OwnerEmail} and admin", model.OwnerEmail);
                 TempData["Success"] = "Your vet consultation request has been submitted successfully! You will receive a confirmation email shortly.";
@@ -520,7 +510,6 @@ namespace PetAdoption.Controllers
             return RedirectToAction("Consultform");
         }
 
-        // Submit Dog Training Booking
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitDogTrainingBooking(DogTrainingBooking model)
@@ -565,10 +554,188 @@ namespace PetAdoption.Controllers
 
             return RedirectToAction("DogTraining");
         }
-
-        // Helper method to hash password
-        private string HashPassword(string password)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> InitiatePayment([FromBody] PaymentRequest paymentRequest)
         {
+            try
+            {
+                var userEmail = HttpContext.Session.GetString("UserEmail");
+                _logger.LogInformation("Initiating payment for user: {UserEmail}", userEmail);
+                if (string.IsNullOrEmpty(userEmail))
+                {
+                    _logger.LogWarning("User not logged in when attempting payment");
+                    return Json(new { success = false, message = "Please login to proceed with payment" });
+                }
+
+                var cartItems = await _context.CartItems
+                    .Where(c => c.UserEmail == userEmail)
+                    .ToListAsync();
+                _logger.LogInformation("Found {Count} cart items for user {UserEmail}", cartItems.Count, userEmail);
+                if (!cartItems.Any())
+                {
+                    _logger.LogWarning("Cart is empty for user {UserEmail}", userEmail);
+                    return Json(new { success = false, message = "Cart is empty" });
+                }
+
+                foreach (var item in cartItems)
+                {
+                    _logger.LogInformation("Cart Item: {ProductName}, Price: {ProductPrice}, Quantity: {Quantity}",
+                        item.ProductName, item.ProductPrice, item.Quantity);
+                }
+
+                decimal totalAmount = cartItems.Sum(item =>
+                    decimal.TryParse(item.ProductPrice, out decimal price) ? price * item.Quantity : 0);
+                int amountInPaise = (int)(totalAmount * 100);
+
+                if (amountInPaise < 100)
+                {
+                    _logger.LogInformation("Amount {AmountInPaise} paise is below minimum, adjusting to 100 paise", amountInPaise);
+                    amountInPaise = 100;
+                    totalAmount = 1m;
+                }
+                _logger.LogInformation("Calculated total amount: {Amount} INR ({AmountInPaise} paise)", totalAmount, amountInPaise);
+
+                string? keyId = _configuration["Razorpay:KeyId"];
+                string? keySecret = _configuration["Razorpay:KeySecret"];
+                _logger.LogInformation("Razorpay KeyId: {KeyId}", keyId);
+                if (string.IsNullOrEmpty(keyId) || string.IsNullOrEmpty(keySecret))
+                {
+                    _logger.LogError("Razorpay configuration missing: KeyId={KeyId}, KeySecret={KeySecret}", keyId, keySecret);
+                    return Json(new { success = false, message = "Payment configuration error" });
+                }
+
+                RazorpayClient client = new RazorpayClient(keyId, keySecret);
+                _logger.LogInformation("Razorpay client initialized");
+
+                Dictionary<string, object> options = new Dictionary<string, object>
+        {
+            { "amount", amountInPaise },
+            { "currency", "INR" },
+            { "receipt", $"order_rcptid_{DateTime.Now.Ticks}" }
+        };
+
+                Order order = client.Order.Create(options);
+                string orderId = order["id"].ToString();
+                _logger.LogInformation("Razorpay order created with OrderId: {OrderId}", orderId);
+
+                // Create payment record with all required fields explicitly set
+                var paymentRecord = new PaymentRecord
+                {
+                    UserEmail = userEmail ?? "unknown@example.com", // Fallback if null
+                    OrderId = orderId,
+                    Amount = totalAmount,
+                    Status = "Pending",
+                    CreatedAt = DateTime.UtcNow,
+                    RazorpayPaymentId = null, // Nullable field
+                    CompletedAt = null        // Nullable field
+                };
+
+                try
+                {
+                    _context.PaymentRecords.Add(paymentRecord);
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation("Payment record saved successfully for OrderId: {OrderId}", orderId);
+                }
+                catch (Exception dbEx)
+                {
+                    _logger.LogError(dbEx, "Failed to save payment record for OrderId: {OrderId}", orderId);
+                    // Continue to Razorpay even if DB save fails
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    key = keyId,
+                    amount = amountInPaise,
+                    orderId = orderId
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error initiating payment for user {UserEmail}", HttpContext.Session.GetString("UserEmail"));
+                return Json(new { success = false, message = "Error initiating payment: " + ex.Message });
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> VerifyPayment([FromBody] PaymentVerification verification)
+        {
+            try
+            {
+                var userEmail = HttpContext.Session.GetString("UserEmail");
+                if (string.IsNullOrEmpty(userEmail))
+                {
+                    return Json(new { success = false, message = "User not logged in" });
+                }
+
+                string? keySecret = _configuration["Razorpay:KeySecret"];
+                if (string.IsNullOrEmpty(keySecret) || string.IsNullOrEmpty(verification?.RazorpayOrderId) ||
+                    string.IsNullOrEmpty(verification?.RazorpayPaymentId))
+                {
+                    return Json(new { success = false, message = "Invalid payment data" });
+                }
+
+                string attributes = verification.RazorpayOrderId + "|" + verification.RazorpayPaymentId;
+
+                using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(keySecret)))
+                {
+                    var generatedSignature = BitConverter.ToString(hmac.ComputeHash(Encoding.UTF8.GetBytes(attributes)))
+                        .Replace("-", "").ToLower();
+
+                    if (generatedSignature != verification.RazorpaySignature)
+                    {
+                        return Json(new { success = false, message = "Payment verification failed" });
+                    }
+                }
+
+                var paymentRecord = await _context.PaymentRecords
+                    .FirstOrDefaultAsync(p => p.OrderId == verification.RazorpayOrderId);
+
+                if (paymentRecord != null)
+                {
+                    paymentRecord.Status = "Completed";
+                    paymentRecord.RazorpayPaymentId = verification.RazorpayPaymentId;
+                    paymentRecord.CompletedAt = DateTime.UtcNow;
+                    await _context.SaveChangesAsync();
+
+                    var cartItems = await _context.CartItems
+                        .Where(c => c.UserEmail == userEmail)
+                        .ToListAsync();
+                    _context.CartItems.RemoveRange(cartItems);
+                    await _context.SaveChangesAsync();
+                }
+
+                try
+                {
+                    string subject = "Fur Angels - Payment Confirmation";
+                    string body = $@"
+                        <h2>Payment Successful</h2>
+                        <p>Payment ID: {verification.RazorpayPaymentId}</p>
+                        <p>Order ID: {verification.RazorpayOrderId}</p>
+                        <p>Amount: ₹{paymentRecord?.Amount ?? 0}</p>
+                        <p>Date: {DateTime.UtcNow.ToString("d MMMM yyyy HH:mm")}</p>
+                        <p>Thank you for your purchase!</p>
+                    ";
+                    await _emailService.SendEmailAsync(userEmail, subject, body);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to send payment confirmation email");
+                }
+
+                return Json(new { success = true, message = "Payment verified successfully" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error verifying payment");
+                return Json(new { success = false, message = "Error verifying payment" });
+            }
+        }
+
+        private string HashPassword(string? password)
+        {
+            if (string.IsNullOrEmpty(password)) return string.Empty;
             using (var sha256 = SHA256.Create())
             {
                 var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
@@ -576,22 +743,20 @@ namespace PetAdoption.Controllers
             }
         }
 
-        // Helper method to verify password
-        private bool VerifyPassword(string password, string hashedPassword)
+        private bool VerifyPassword(string? password, string? hashedPassword)
         {
+            if (string.IsNullOrEmpty(password) || string.IsNullOrEmpty(hashedPassword)) return false;
             var hashOfInput = HashPassword(password);
             return hashOfInput == hashedPassword;
         }
 
-        // Helper method to generate OTP
         private string GenerateOtp()
         {
             Random random = new Random();
-            return random.Next(100000, 999999).ToString(); // 6-digit OTP
+            return random.Next(100000, 999999).ToString();
         }
     }
 
-    // DTO for JSON deserialization
     public class CartItemDto
     {
         public string? UserEmail { get; set; }
