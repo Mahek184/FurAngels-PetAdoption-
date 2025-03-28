@@ -42,7 +42,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
-// Seed the AdminDbContext database
+// Seed the AdminDbContext database (only if database is already migrated)
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -50,35 +50,42 @@ using (var scope = app.Services.CreateScope())
     {
         var adminContext = services.GetRequiredService<AdminDbContext>();
         Console.WriteLine("AdminDbContext connection string: " + adminContext.Database.GetConnectionString());
-        adminContext.Database.Migrate(); // Apply migrations
 
-        // Clear existing data
-        adminContext.Admins.RemoveRange(adminContext.Admins);
-        adminContext.SaveChanges();
-
-        // Seed the admin user
-        var admin = new Admin
+        // Check if the database exists and is up-to-date; do not call Migrate() here
+        if (adminContext.Database.CanConnect())
         {
-            Email = "mahekbabariya18@gmail.com",
-            Password = "mahek@123" // In production, hash this
-        };
-        adminContext.Admins.Add(admin);
-        adminContext.SaveChanges();
-        Console.WriteLine("Admin user seeded successfully with Email: mahekbabariya18@gmail.com, Password: mahek@123");
+            // Clear existing data
+            adminContext.Admins.RemoveRange(adminContext.Admins);
+            adminContext.SaveChanges();
 
-        // Verify the data
-        var admins = adminContext.Admins.ToList();
-        if (admins.Any())
-        {
-            Console.WriteLine("Database contents after seeding:");
-            foreach (var a in admins)
+            // Seed the admin user
+            var admin = new Admin
             {
-                Console.WriteLine($"ID: {a.Id}, Email: {a.Email}, Password: {a.Password}");
+                Email = "mahekbabariya18@gmail.com",
+                Password = "mahek@123" // In production, hash this
+            };
+            adminContext.Admins.Add(admin);
+            adminContext.SaveChanges();
+            Console.WriteLine("Admin user seeded successfully with Email: mahekbabariya18@gmail.com, Password: mahek@123");
+
+            // Verify the data
+            var admins = adminContext.Admins.ToList();
+            if (admins.Any())
+            {
+                Console.WriteLine("Database contents after seeding:");
+                foreach (var a in admins)
+                {
+                    Console.WriteLine($"ID: {a.Id}, Email: {a.Email}, Password: {a.Password}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No data found in Admins table after seeding!");
             }
         }
         else
         {
-            Console.WriteLine("No data found in Admins table after seeding!");
+            Console.WriteLine("Database is not accessible. Please ensure migrations are applied.");
         }
     }
     catch (Exception ex)

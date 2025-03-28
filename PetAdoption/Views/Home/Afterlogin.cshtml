@@ -554,6 +554,7 @@
             </div>
 
             <div class="dropdown-menu" id="dropdown-menu">
+                <a asp-controller="Home" asp-action="Index">Home</a>
                 <a asp-controller="Home" asp-action="AboutUs">About us</a>
                 <a asp-controller="Home" asp-action="GroomingPage">Pet Grooming</a>
                 <a asp-controller="Home" asp-action="PetShop">Online Shop</a>
@@ -569,7 +570,7 @@
                 </div>
                 <div class="user-dropdown" id="user-dropdown">
                     <a href="#"><i class="fa-solid fa-user"></i>My Profile</a>
-                    <a href="#"><i class="fa-solid fa-shopping-cart"></i>View Cart</a>
+                    <a asp-controller="Home" asp-action="Cartitem"><i class="fa-solid fa-shopping-cart"></i>View Cart</a>
                     <a asp-controller="Home" asp-action="Logout"><i class="fa-solid fa-sign-out-alt"></i>Log Out</a>
                 </div>
             </div>

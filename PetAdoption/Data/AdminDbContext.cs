@@ -11,5 +11,6 @@ namespace PetAdoption.Data
         }
 
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<VetConsultation> VetConsultations { get; set; }
     }
 }

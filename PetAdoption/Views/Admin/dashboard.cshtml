@@ -1,12 +1,14 @@
-﻿@{
+﻿@model List<PetAdoption.Models.VetConsultation>
+@{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fur Angels - Animal Shelter</title>
+    <title>Fur Angels - Admin Dashboard</title>
     <link rel="stylesheet" href="~/css/site.css" />
     <style>
         body {
@@ -14,36 +16,23 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Top Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #B17F59; /* Beige background */
+            background-color: #B17F59;
             padding: 20px 30px;
             color: #333;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-            .logo img {
-                height: 50px;
-                margin-top:-90px;
-            }
-
         .user {
             font-size: 18px;
-            padding:20px;
-            margin-left: 1200px;
+            padding: 20px;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 250px;
-            background-color: #A5B68D; /* Dark Blue */
+            background-color: #A5B68D;
             color: #fff;
             height: 100vh;
             position: fixed;
@@ -69,38 +58,92 @@
                 background-color: #324A7A;
             }
 
-        /* Main Content */
         .main-content {
             margin-left: 250px;
             padding: 40px;
         }
 
-        h1 {
-            font-size: 36px;
+        .vet-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
+
+            .vet-table th, .vet-table td {
+                padding: 12px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            .vet-table th {
+                background-color: #A5B68D;
+                color: white;
+            }
+
+            .vet-table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
     </style>
 </head>
 <body>
-
     <div class="header">
         <div class="user">Mahek</div>
     </div>
 
     <div class="sidebar">
         <div class="logo">
-            <img src="~/image/resize.png" alt="Fur Angels Logo">   <!-- ✅ Fixed path -->
+            <img src="~/image/resize.png" alt="Fur Angels Logo" style="height: 50px;">
         </div>
         <h2><a href="#" class="active">Dashboard</a></h2>
         <a href="#">Pet Abuse</a>
         <a href="#">Pet Grooming</a>
         <a href="#">Dog Training</a>
-        <a href="#">Vet Consult</a>
+        <a asp-controller="Admin" asp-action="VetConsult">Vet Consult</a>
         <a asp-controller="Admin" asp-action="Addshop">Shop</a>
+        <a asp-controller="Admin" asp-action="Logout">Logout</a>
     </div>
 
     <div class="main-content">
-        <h1>Control Panel</h1>
-    </div>
+        <h1>Vet Consultation Requests</h1>
 
+        @if (Model != null && Model.Any())
+        {
+            <table class="vet-table">
+                <thead>
+                    <tr>
+                        <th>Pet Name</th>
+                        <th>Type</th>
+                        <th>Age</th>
+                        <th>Owner</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Concern</th>
+                        <th>Preferred Date</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var consultation in Model)
+                    {
+                        <tr>
+                            <td>@consultation.PetName</td>
+                            <td>@consultation.PetType</td>
+                            <td>@consultation.PetAge</td>
+                            <td>@consultation.OwnerName</td>
+                            <td>@consultation.OwnerEmail</td>
+                            <td>@consultation.OwnerPhone</td>
+                            <td>@consultation.Concern</td>
+                            <td>@consultation.PreferredDate.ToString("yyyy-MM-dd")</td>
+                            <td>@consultation.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No vet consultation requests found.</p>
+        }
+    </div>
 </body>
 </html>

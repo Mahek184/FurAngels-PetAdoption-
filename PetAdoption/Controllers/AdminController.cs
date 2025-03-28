@@ -21,13 +21,14 @@ namespace PetAdoption.Controllers
 
         public IActionResult Dashboard()
         {
-            return View();
+            var vetConsultations = _context.VetConsultations.ToList();
+            return View(vetConsultations);
         }
+
         public IActionResult Addshop()
         {
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -41,6 +42,7 @@ namespace PetAdoption.Controllers
             {
                 Console.WriteLine($"Login successful! Found admin - Email: {admin.Email}, Password: {admin.Password}");
                 ViewBag.Success = "Login successful!";
+                HttpContext.Session.SetString("AdminEmail", admin.Email);
                 return RedirectToAction("dashboard", "Admin");
             }
             else
@@ -62,6 +64,33 @@ namespace PetAdoption.Controllers
                 ViewBag.Error = "Invalid email or password";
                 return View();
             }
+        }
+
+        public IActionResult VetConsult()
+        {
+            return View("~/Views/VetConsultation/SubmitVetConsultation.cshtml");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SubmitVetConsultation(VetConsultation model)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.VetConsultations.Add(model);
+                _context.SaveChanges();
+                TempData["Success"] = "Vet consultation request submitted successfully!";
+                return RedirectToAction("VetConsult");
+            }
+
+            TempData["Error"] = "Please fill all required fields correctly.";
+            return View("~/Views/VetConsultation/SubmitVetConsultation.cshtml", model);
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("AdminLogin");
         }
     }
 }
