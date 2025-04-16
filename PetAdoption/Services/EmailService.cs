@@ -1,8 +1,9 @@
-﻿// Services/EmailService.cs
-using MailKit.Net.Smtp; // Correct namespace for MailKit's SmtpClient
-using MimeKit;          // For MimeMessage, MailboxAddress, BodyBuilder
+﻿using MailKit.Net.Smtp;
+using MimeKit;
 using Microsoft.Extensions.Options;
 using PetAdoption.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace PetAdoption.Services
 {
@@ -17,6 +18,11 @@ namespace PetAdoption.Services
 
         public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
+            if (string.IsNullOrWhiteSpace(toEmail))
+            {
+                throw new ArgumentException("Recipient email cannot be empty.", nameof(toEmail));
+            }
+
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(_emailSettings.SenderName, _emailSettings.SenderEmail));
             message.To.Add(new MailboxAddress("", toEmail));
@@ -25,21 +31,41 @@ namespace PetAdoption.Services
             var bodyBuilder = new BodyBuilder { HtmlBody = body };
             message.Body = bodyBuilder.ToMessageBody();
 
-            using (var client = new SmtpClient()) // MailKit.Net.Smtp.SmtpClient
+            // Retry logic for transient failures
+            for (int attempt = 1; attempt <= 3; attempt++)
             {
-                try
+                using (var client = new SmtpClient())
                 {
-                    await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.SmtpPort, MailKit.Security.SecureSocketOptions.StartTls);
-                    await client.AuthenticateAsync(_emailSettings.Username, _emailSettings.Password);
-                    await client.SendAsync(message);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Failed to send email: {ex.Message}", ex);
-                }
-                finally
-                {
-                    await client.DisconnectAsync(true);
+                    try
+                    {
+                        Console.WriteLine($"Attempt {attempt}: Connecting to SMTP {_emailSettings.SmtpServer}:{_emailSettings.SmtpPort}");
+                        await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.SmtpPort, MailKit.Security.SecureSocketOptions.StartTls);
+
+                        Console.WriteLine("Authenticating...");
+                        await client.AuthenticateAsync(_emailSettings.Username, _emailSettings.Password);
+
+                        Console.WriteLine("Sending email...");
+                        await client.SendAsync(message);
+
+                        Console.WriteLine("Email sent successfully.");
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Attempt {attempt} failed: {ex.Message}");
+                        if (attempt == 3)
+                        {
+                            throw new Exception($"Failed to send email after {attempt} attempts: {ex.Message}", ex);
+                        }
+                        await Task.Delay(1000 * attempt); // Exponential backoff
+                    }
+                    finally
+                    {
+                        if (client.IsConnected)
+                        {
+                            await client.DisconnectAsync(true);
+                        }
+                    }
                 }
             }
         }

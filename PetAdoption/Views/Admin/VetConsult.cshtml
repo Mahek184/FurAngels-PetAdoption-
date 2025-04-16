@@ -1,0 +1,78 @@
+﻿@model List<PetAdoption.Models.VetConsultation>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fur Angels - Admin Dashboard</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        /* Your existing styles */
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="user">Mahek</div>
+    </div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="~/image/resize.png" alt="Fur Angels Logo" style="height: 50px;">
+        </div>
+        <h2><a href="#" class="active">Dashboard</a></h2>
+        <a href="#">Pet Abuse</a>
+        <a href="#">Pet Grooming</a>
+        <a href="#">Dog Training</a>
+        <a asp-controller="Admin" asp-action="VetConsult">Vet Consult</a>
+        <a asp-controller="Admin" asp-action="Addshop">Shop</a>
+        <a asp-controller="Admin" asp-action="Logout">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Vet Consultation Requests</h1>
+
+        @if (Model != null && Model.Any())
+        {
+            <table class="vet-table">
+                <thead>
+                    <tr>
+                        <th>Pet Name</th>
+                        <th>Type</th>
+                        <th>Age</th>
+                        <th>Owner</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Concern</th>
+                        <th>Preferred Date</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var consultation in Model)
+                    {
+                        <tr>
+                            <td>@consultation.PetName</td>
+                            <td>@consultation.PetType</td>
+                            <td>@consultation.PetAge</td>
+                            <td>@consultation.OwnerName</td>
+                            <td>@consultation.OwnerEmail</td>
+                            <td>@consultation.OwnerPhone</td>
+                            <td>@consultation.Concern</td>
+                            <td>@consultation.PreferredDate.ToString("yyyy-MM-dd")</td>
+                            <td>@consultation.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No vet consultation requests found.</p>
+        }
+    </div>
+</body>
+</html>

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PetAdoption.Data;
 using PetAdoption.Models;
 using PetAdoption.Services;
+using BCrypt.Net; // Add this for BCrypt password hashing
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,15 +59,15 @@ using (var scope = app.Services.CreateScope())
             adminContext.Admins.RemoveRange(adminContext.Admins);
             adminContext.SaveChanges();
 
-            // Seed the admin user
+            // Seed the admin user with a hashed password
             var admin = new Admin
             {
                 Email = "mahekbabariya18@gmail.com",
-                Password = "mahek@123" // In production, hash this
+                Password = BCrypt.Net.BCrypt.HashPassword("mahek@123") // Hash the password
             };
             adminContext.Admins.Add(admin);
             adminContext.SaveChanges();
-            Console.WriteLine("Admin user seeded successfully with Email: mahekbabariya18@gmail.com, Password: mahek@123");
+            Console.WriteLine("Admin user seeded successfully with Email: mahekbabariya18@gmail.com, Password: [Hashed]");
 
             // Verify the data
             var admins = adminContext.Admins.ToList();

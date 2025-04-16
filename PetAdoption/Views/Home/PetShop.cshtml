@@ -51,6 +51,19 @@
                 color: #D86F1D;
             }
 
+        .icon-container a {
+            font-size: 18px;
+            color: #000;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+            .icon-container a:hover {
+                color: #D86F1D;
+                text-decoration: underline;
+            }
+
         /* Slideshow Container */
         .slideshow-container {
             position: relative;
@@ -379,6 +392,13 @@
             .btn-success:hover {
                 background-color: #C45E1A;
             }
+
+        /* Map Styles */
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -392,7 +412,7 @@
             <a href="/Home/CartItem"><i class="fa fa-shopping-cart cart-icon"></i></a>
             @if (!string.IsNullOrEmpty(Context.Session.GetString("UserEmail")))
             {
-                <a href="/Home/Logout">Logout</a>
+                <a href="/Home/AfterLogin">Home</a>
             }
             else
             {
@@ -681,6 +701,12 @@
         FurAngles 2025
     </div>
 
+    <!-- Map Section -->
+    <div style="padding: 20px; background-color: #fff; text-align: center;">
+        <h2>Find Adoption Centers Near You</h2>
+        <div id="map"></div>
+    </div>
+
     <!-- Cart Modal -->
     <div id="cartModal" class="modal">
         <div class="cart-content">
@@ -707,6 +733,7 @@
     @Html.AntiForgeryToken()
 
     <!-- Scripts -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAA2lfE39CedLC378miOkKRRwvG71Ejjoo&callback=initMap" async defer></script>
     <script>
         // Slideshow Script
         let slideIndex = 0;
@@ -1045,6 +1072,22 @@
                 }
             };
         });
+
+        // Google Maps Initialization
+        function initMap() {
+            const mapOptions = {
+                center: { lat: 37.7749, lng: -122.4194 }, // Default to San Francisco
+                zoom: 10
+            };
+            const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            // Optional: Add a marker (e.g., for a sample adoption center)
+            const marker = new google.maps.Marker({
+                position: { lat: 37.7749, lng: -122.4194 },
+                map: map,
+                title: "Sample Adoption Center"
+            });
+        }
     </script>
 </body>
 </html>

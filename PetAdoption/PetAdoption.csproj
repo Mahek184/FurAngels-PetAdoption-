@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Admin\VetConsult.cshtml" />
     <Content Remove="Views\Home\ForgotPassword.cshtml" />
   </ItemGroup>
 
@@ -28,6 +29,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.0" />
     <PackageReference Include="Razorpay" Version="3.1.4" />
+	  <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
   </ItemGroup>
 
  
@@ -37,6 +39,15 @@
 	<ItemGroup>
 	
 		<PackageReference Include="MimeKit" Version="4.11.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Views\Admin\VetConsult.cshtml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Views\Admin\VetConsult.cshtml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="Views\Admin\VetConsult.cshtml" />
 	</ItemGroup>
 
 </Project>

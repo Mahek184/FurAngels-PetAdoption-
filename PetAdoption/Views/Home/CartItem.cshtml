@@ -48,6 +48,19 @@
             color: #D86F1D;
         }
 
+        .nav-home-link {
+            font-size: 18px;
+            color: #000;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+            .nav-home-link:hover {
+                color: #D86F1D;
+                text-decoration: underline;
+            }
+
         /* Cart Container */
         .cart-container {
             max-width: 600px;
@@ -249,10 +262,7 @@
 <body>
     @Html.AntiForgeryToken()
     <!-- Test Image -->
-    <div style="text-align: center; margin: 20px;">
-        <h3>Test Image</h3>
-        <img src="/image/default.jpg" alt="Test Image" style="width: 100px; height: 100px;">
-    </div>
+    
 
     <!-- Header -->
     <div class="header">
@@ -261,11 +271,11 @@
             <a href="/Home/CartItem"><i class="fa fa-shopping-cart cart-icon"></i></a>
             @if (!string.IsNullOrEmpty(Context.Session.GetString("UserEmail")))
             {
-                <a href="/Home/Logout">Logout</a>
+                <a href="/Home/AfterLogin" class="nav-home-link">Home</a>
             }
             else
             {
-                <a href="/Home/Login">Login</a>
+                <a href="/Home/Login" class="nav-home-link">Login</a>
             }
         </div>
     </div>

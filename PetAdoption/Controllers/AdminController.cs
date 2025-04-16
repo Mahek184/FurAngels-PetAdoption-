@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetAdoption.Data;
 using PetAdoption.Models;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
+using BCrypt.Net;
+using Org.BouncyCastle.Crypto.Generators;
 
 namespace PetAdoption.Controllers
 {
@@ -14,79 +18,89 @@ namespace PetAdoption.Controllers
             _context = context;
         }
 
+        // GET: Admin Login
         public IActionResult AdminLogin()
         {
             return View();
         }
 
+        // POST: Admin Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AdminLogin(string email, string password)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                ViewBag.Error = "Email and password are required.";
+                return View();
+            }
+
+            var admin = _context.Admins.FirstOrDefault(a => a.Email == email);
+            if (admin != null && BCrypt.Net.BCrypt.Verify(password, admin.Password))
+            {
+                HttpContext.Session.SetString("AdminEmail", admin.Email);
+                return RedirectToAction("Dashboard");
+            }
+
+            ViewBag.Error = "Invalid email or password.";
+            return View();
+        }
+
+        // GET: Admin Dashboard
         public IActionResult Dashboard()
         {
             var vetConsultations = _context.VetConsultations.ToList();
             return View(vetConsultations);
         }
 
-        public IActionResult Addshop()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AdminLogin(string email, string password)
-        {
-            Console.WriteLine($"Login attempt - Email: '{email}', Password: '{password}'");
-            var admin = _context.Admins
-                .FirstOrDefault(a => a.Email == email && a.Password == password);
-
-            if (admin != null)
-            {
-                Console.WriteLine($"Login successful! Found admin - Email: {admin.Email}, Password: {admin.Password}");
-                ViewBag.Success = "Login successful!";
-                HttpContext.Session.SetString("AdminEmail", admin.Email);
-                return RedirectToAction("dashboard", "Admin");
-            }
-            else
-            {
-                Console.WriteLine("Login failed: No matching admin found in database.");
-                var allAdmins = _context.Admins.ToList();
-                if (allAdmins.Any())
-                {
-                    Console.WriteLine("Current database contents:");
-                    foreach (var a in allAdmins)
-                    {
-                        Console.WriteLine($"ID: {a.Id}, Email: {a.Email}, Password: {a.Password}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Admins table is empty!");
-                }
-                ViewBag.Error = "Invalid email or password";
-                return View();
-            }
-        }
-
+        // GET: Vet Consultation Table
         public IActionResult VetConsult()
         {
-            return View("~/Views/VetConsultation/SubmitVetConsultation.cshtml");
+            var vetConsultations = _context.VetConsultations.ToList();
+            return View(vetConsultations);
         }
 
+        // GET: Vet Consultation Form
+        public IActionResult SubmitVetConsultation()
+        {
+            return View("~/Views/VetConsultation/SubmitVetConsultation.cshtml", new VetConsultation());
+        }
+
+        // POST: Vet Consultation Form Submission
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SubmitVetConsultation(VetConsultation model)
         {
             if (ModelState.IsValid)
             {
-                _context.VetConsultations.Add(model);
-                _context.SaveChanges();
-                TempData["Success"] = "Vet consultation request submitted successfully!";
-                return RedirectToAction("VetConsult");
+                try
+                {
+                    model.CreatedAt = DateTime.Now;
+                    _context.VetConsultations.Add(model);
+                    _context.SaveChanges();
+                    TempData["Success"] = "Vet consultation request submitted successfully!";
+                    return RedirectToAction("VetConsult");
+                }
+                catch (Exception)
+                {
+                    TempData["Error"] = "An error occurred while saving the request. Please try again.";
+                }
+            }
+            else
+            {
+                TempData["Error"] = "Please fill all required fields correctly.";
             }
 
-            TempData["Error"] = "Please fill all required fields correctly.";
             return View("~/Views/VetConsultation/SubmitVetConsultation.cshtml", model);
         }
 
+        // GET: Add Shop (Placeholder)
+        public IActionResult Addshop()
+        {
+            return View();
+        }
+
+        // GET: Logout
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
